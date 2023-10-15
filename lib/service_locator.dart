@@ -12,11 +12,12 @@ import 'package:skybase/data/repositories/sample_feature/sample_feature_reposito
 import 'package:skybase/data/sources/server/auth/auth_sources.dart';
 import 'package:skybase/data/sources/server/auth/auth_sources_impl.dart';
 import 'package:skybase/data/sources/server/sample_feature/sample_feature_sources.dart';
-import 'package:skybase/ui/views/intro/bloc/intro_bloc.dart';
-import 'package:skybase/ui/views/login/bloc/login_bloc.dart';
-import 'package:skybase/ui/views/profile/bloc/profile_bloc.dart';
-import 'package:skybase/ui/views/sample_feature/list/bloc/sample_feature_list_bloc.dart';
-import 'package:skybase/ui/views/settings/bloc/setting_bloc.dart';
+import 'package:skybase/ui/views/intro/intro_notifier.dart';
+import 'package:skybase/ui/views/login/login_notifier.dart';
+import 'package:skybase/ui/views/profile/component/repository/profile_repository_notifier.dart';
+import 'package:skybase/ui/views/profile/profile_notifier.dart';
+import 'package:skybase/ui/views/sample_feature/list/sample_feature_list_notifier.dart';
+import 'package:skybase/ui/views/settings/setting_notifier.dart';
 
 import 'config/network/api_config.dart';
 import 'config/themes/app_theme.dart';
@@ -26,8 +27,7 @@ import 'core/database/storage/storage_manager.dart';
 import 'core/database/secure_storage/secure_storage_manager.dart';
 import 'data/repositories/sample_feature/sample_feature_repository.dart';
 import 'data/sources/server/sample_feature/sample_feature_sources_impl.dart';
-import 'ui/views/profile/component/repository/bloc/profile_repository_bloc.dart';
-import 'ui/views/sample_feature/detail/bloc/sample_feature_detail_bloc.dart';
+import 'ui/views/sample_feature/detail/sample_feature_detail_notifier.dart';
 
 /* Created by
    Varcant
@@ -72,17 +72,17 @@ class ServiceLocator {
       () => SampleFeatureSourcesImpl(),
     );
 
-    // Bloc
-    sl.registerFactory(() => IntroBloc());
-    sl.registerFactory(() => LoginBloc(sl<AuthRepository>()));
-    sl.registerFactory(() => ProfileBloc(sl<AuthRepository>()));
-    sl.registerFactory(() => SettingBloc());
-    sl.registerFactory(() => ProfileRepositoryBloc(sl<AuthRepository>()));
+    // Provider
+    sl.registerFactory(() => LoginNotifier(sl<AuthRepository>()));
+    sl.registerFactory(() => IntroNotifier());
+    sl.registerFactory(() => SettingNotifier());
+    sl.registerFactory(() => ProfileNotifier(sl<AuthRepository>()));
+    sl.registerFactory(() => ProfileRepositoryNotifier(sl<AuthRepository>()));
     sl.registerFactory(
-      () => SampleFeatureListBloc(sl<SampleFeatureRepository>()),
+      () => SampleFeatureListNotifier(sl<SampleFeatureRepository>()),
     );
     sl.registerFactory(
-          () => SampleFeatureDetailBloc(sl<SampleFeatureRepository>()),
+      () => SampleFeatureDetailNotifier(sl<SampleFeatureRepository>()),
     );
   }
 }

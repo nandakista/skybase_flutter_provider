@@ -4,11 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skybase/config/auth_manager/auth_manager.dart';
 import 'package:skybase/core/localization/locale_manager.dart';
 import 'package:skybase/config/themes/theme_manager/theme_manager.dart';
-import 'package:skybase/ui/blocs/app_blocs.dart';
 
 import 'app_configuration.dart';
 import 'config/themes/app_theme.dart';
-import 'ui/blocs/app_bloc_observer.dart';
 import 'service_locator.dart';
 import 'ui/routes/app_routes.dart';
 
@@ -16,7 +14,6 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   await ServiceLocator.init();
-  Bloc.observer = AppBlocObserver();
   runApp(
     EasyLocalization(
       path: 'lib/core/localization/languages',
@@ -38,7 +35,6 @@ class App extends StatelessWidget {
       providers: [
         BlocProvider(create: (_) => sl<AuthManager>()..init()),
         BlocProvider(create: (_) => sl<ThemeManager>()..init()),
-        ...AppBlocs.provider,
       ],
       child: BlocBuilder<ThemeManager, ThemeState>(
         builder: (context, state) {

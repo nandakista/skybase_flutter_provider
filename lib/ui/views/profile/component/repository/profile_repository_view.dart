@@ -1,65 +1,47 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 import 'package:skybase/config/themes/app_colors.dart';
 import 'package:skybase/config/themes/app_style.dart';
-import 'package:skybase/ui/views/profile/component/repository/bloc/profile_repository_bloc.dart';
+import 'package:skybase/ui/views/profile/component/repository/profile_repository_notifier.dart';
 import 'package:skybase/ui/widgets/base/sky_view.dart';
 import 'package:skybase/ui/widgets/shimmer/shimmer_list.dart';
 import 'package:skybase/ui/widgets/sky_image.dart';
 
-class ProfileRepositoryView extends StatefulWidget {
+class ProfileRepositoryView extends StatelessWidget {
   const ProfileRepositoryView({Key? key}) : super(key: key);
 
   @override
-  State<ProfileRepositoryView> createState() => _ProfileRepositoryViewState();
-}
-
-class _ProfileRepositoryViewState extends State<ProfileRepositoryView> {
-  @override
-  void initState() {
-    Future.microtask(
-      () => context.read<ProfileRepositoryBloc>().add(LoadRepositories()),
-    );
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ProfileRepositoryBloc, ProfileRepositoryState>(
-      builder: (context, state) {
-        final bloc = context.read<ProfileRepositoryBloc>();
-        final data = (state is ProfileRepositoryLoaded) ? state.result : null;
-        final errMessage =
-            (state is ProfileRepositoryError) ? state.message : null;
-
+    return Consumer<ProfileRepositoryNotifier>(
+      builder: (context, notifier, child) {
         return SkyView.component(
-          loadingEnabled: state is ProfileRepositoryLoading,
-          errorEnabled: state is ProfileRepositoryError,
-          emptyEnabled: state is ProfileRepositoryInitial,
-          errorTitle: errMessage,
-          onRefresh: () => bloc.add(LoadRepositories()),
-          onRetry: () => bloc.add(LoadRepositories()),
+          loadingEnabled: notifier.isLoading,
+          errorEnabled: notifier.isError,
+          emptyEnabled: notifier.isEmpty,
+          errorTitle: notifier.errorMessage,
+          onRefresh: () => notifier.onRefresh(),
+          onRetry: () => notifier.onRefresh(),
           loadingView: const ShimmerList(),
           child: ListView.builder(
             padding: EdgeInsets.zero,
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            itemCount: data?.length,
+            itemCount: notifier.dataList.length,
             itemBuilder: (context, index) {
-              final item = data?[index];
+              final item = notifier.dataList[index];
               return ListTile(
                 contentPadding: EdgeInsets.zero,
                 leading: SkyImage(
                   shapeImage: ShapeImage.circle,
                   size: 30,
-                  src: '${item?.owner.avatarUrl}&s=200',
+                  src: '${item.owner.avatarUrl}&s=200',
                 ),
-                title: Text(item?.name ?? '', style: AppStyle.body2),
+                title: Text(item.name ?? '', style: AppStyle.body2),
                 subtitle: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Language: ${item?.language ?? '--'}',
+                      'Language: ${item.language ?? '--'}',
                       style: AppStyle.body3,
                     ),
                     const SizedBox(height: 8),
@@ -73,7 +55,7 @@ class _ProfileRepositoryViewState extends State<ProfileRepositoryView> {
                               size: 16,
                             ),
                             Text(
-                              ' ${item?.totalStar}',
+                              ' ${item.totalStar}',
                               style: AppStyle.body3,
                             ),
                           ],
@@ -85,7 +67,7 @@ class _ProfileRepositoryViewState extends State<ProfileRepositoryView> {
                               size: 16,
                             ),
                             Text(
-                              ' ${item?.totalWatch}',
+                              ' ${item.totalWatch}',
                               style: AppStyle.body3,
                             ),
                           ],
@@ -98,7 +80,7 @@ class _ProfileRepositoryViewState extends State<ProfileRepositoryView> {
                               color: AppColors.systemDarkGrey,
                             ),
                             Text(
-                              ' ${item?.totalFork}',
+                              ' ${item.totalFork}',
                               style: AppStyle.body3,
                             ),
                           ],
@@ -111,7 +93,7 @@ class _ProfileRepositoryViewState extends State<ProfileRepositoryView> {
             },
           ),
         );
-      },
+      }
     );
   }
 }

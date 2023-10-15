@@ -2,7 +2,7 @@
 
 ## Overview
 A Flutter Base project that developed with :
-- Clean Architecture
+- Modified Clean Architecture
 - Provider State Management
 - Go Router
 - Dio

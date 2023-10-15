@@ -1,7 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:skybase/config/base/pagination_mixin.dart';
+import 'package:provider/provider.dart';
 import 'package:skybase/core/database/storage/storage_manager.dart';
 import 'package:skybase/config/themes/app_colors.dart';
 import 'package:skybase/config/themes/app_style.dart';
@@ -10,59 +9,25 @@ import 'package:skybase/data/models/sample_feature/sample_feature.dart';
 import 'package:skybase/data/sources/local/cached_key.dart';
 import 'package:skybase/config/base/main_navigation.dart';
 import 'package:skybase/ui/views/sample_feature/detail/sample_feature_detail_view.dart';
-import 'package:skybase/ui/views/sample_feature/list/bloc/sample_feature_list_bloc.dart';
+import 'package:skybase/ui/views/sample_feature/list/sample_feature_list_notifier.dart';
 import 'package:skybase/ui/widgets/base/sky_pagination_view.dart';
 import 'package:skybase/ui/widgets/sky_appbar.dart';
 import 'package:skybase/ui/widgets/sky_image.dart';
 
-class SampleFeatureListView extends StatefulWidget {
+class SampleFeatureListView extends StatelessWidget {
   static const String route = '/user-list';
 
   const SampleFeatureListView({Key? key}) : super(key: key);
 
   @override
-  State<SampleFeatureListView> createState() => _SampleFeatureListViewState();
-}
-
-class _SampleFeatureListViewState extends State<SampleFeatureListView>
-    with PaginationMixin<SampleFeature>, AutomaticKeepAliveClientMixin {
-
-  @override
-  void initState() {
-    super.initState();
-    loadData(
-      () => context
-          .read<SampleFeatureListBloc>()
-          .add(LoadGithubUsers(page, perPage)),
-    );
-  }
-
-  @override
-  bool get wantKeepAlive => true;
-
-  @override
-  void dispose() {
-    pagingController.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    super.build(context);
     return Scaffold(
       appBar: SkyAppBar.secondary(title: 'txt_list_users'.tr()),
-      body: BlocConsumer<SampleFeatureListBloc, SampleFeatureListState>(
-        listener: (BuildContext context, SampleFeatureListState state) {
-          if (state is SampleFeatureListError) {
-            showError(state.message);
-          } else if (state is SampleFeatureListLoaded) {
-            finishLoadData(data: state.result);
-          }
-        },
-        builder: (context, state) {
+      body: Consumer<SampleFeatureListNotifier>(
+        builder: (context, notifier, child) {
           return SkyPaginationView<SampleFeature>(
-            pagingController: pagingController,
-            onRefresh: onRefresh,
+            pagingController: notifier.pagingController,
+            onRefresh: notifier.onRefresh,
             itemBuilder: (BuildContext context, item, int index) {
               return ListTile(
                 onTap: () {
@@ -88,7 +53,7 @@ class _SampleFeatureListViewState extends State<SampleFeatureListView>
               );
             },
           );
-        },
+        }
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: AppColors.primary,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:skybase/ui/views/sample_feature/detail/bloc/sample_feature_detail_bloc.dart';
+import 'package:provider/provider.dart';
+import 'package:skybase/ui/views/sample_feature/detail/sample_feature_detail_notifier.dart';
 import 'package:skybase/ui/views/sample_feature/detail/widgets/sample_feature_detail_header.dart';
 import 'package:skybase/ui/views/sample_feature/detail/widgets/sample_feature_detail_info.dart';
 import 'package:skybase/ui/views/sample_feature/detail/widgets/sample_feature_detail_tab.dart';
@@ -8,74 +8,46 @@ import 'package:skybase/ui/widgets/base/sky_view.dart';
 import 'package:skybase/ui/widgets/shimmer/shimmer_detail.dart';
 import 'package:skybase/ui/widgets/sky_appbar.dart';
 
-class SampleFeatureDetailView extends StatefulWidget {
+class SampleFeatureDetailView extends StatelessWidget {
   static const String route = '/user-detail';
 
-  const SampleFeatureDetailView({
-    Key? key,
-    required this.idArgs,
-    required this.usernameArgs,
-  }) : super(key: key);
+  const SampleFeatureDetailView({Key? key, required this.usernameArgs})
+      : super(key: key);
 
-  final int idArgs;
   final String usernameArgs;
-
-  @override
-  State<SampleFeatureDetailView> createState() =>
-      _SampleFeatureDetailViewState();
-}
-
-class _SampleFeatureDetailViewState extends State<SampleFeatureDetailView> {
-  @override
-  void initState() {
-    Future.microtask(
-      () => context
-          .read<SampleFeatureDetailBloc>()
-          .add(LoadGithubUser(widget.idArgs, widget.usernameArgs)),
-    );
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: SkyAppBar.primary(title: widget.usernameArgs),
+      appBar: SkyAppBar.primary(title: usernameArgs),
       body: SafeArea(
-        child: BlocBuilder<SampleFeatureDetailBloc, SampleFeatureDetailState>(
-          builder: (context, state) {
-            final bloc = context.read<SampleFeatureDetailBloc>();
-            final data =
-                (state is SampleFeatureDetailLoaded) ? state.result : null;
-            final errMessage =
-                (state is SampleFeatureDetailError) ? state.message : null;
-
+        child: Consumer<SampleFeatureDetailNotifier>(
+          builder: (context, notifier, child) {
             return SkyView.page(
-              loadingEnabled: state is SampleFeatureDetailLoading,
-              errorEnabled: state is SampleFeatureDetailError,
+              loadingEnabled: notifier.isLoading,
+              errorEnabled: notifier.isError,
               emptyEnabled: false,
               loadingView: const ShimmerDetail(),
-              errorTitle: errMessage,
-              onRefresh: () =>
-                  bloc.add(LoadGithubUser(widget.idArgs, widget.usernameArgs)),
-              onRetry: () =>
-                  bloc.add(LoadGithubUser(widget.idArgs, widget.usernameArgs)),
+              errorTitle: notifier.errorMessage,
+              onRefresh: () => notifier.onRefresh(),
+              onRetry: () => notifier.onRefresh(),
               child: SingleChildScrollView(
                 physics: const AlwaysScrollableScrollPhysics(),
                 child: Column(
                   children: [
                     SampleFeatureDetailHeader(
-                      avatar: data?.avatarUrl ?? '',
-                      repositoryCount: data?.repository ?? 0,
-                      followerCount: data?.followers ?? 0,
-                      followingCount: data?.following ?? 0,
+                      avatar: notifier.dataObj?.avatarUrl ?? '',
+                      repositoryCount: notifier.dataObj?.repository ?? 0,
+                      followerCount: notifier.dataObj?.followers ?? 0,
+                      followingCount: notifier.dataObj?.following ?? 0,
                     ),
                     SampleFeatureDetailInfo(
-                      name: data?.name ?? '',
-                      bio: data?.bio ?? '',
-                      company: data?.company ?? '',
-                      location: data?.location ?? '',
+                      name: notifier.dataObj?.name ?? '',
+                      bio: notifier.dataObj?.bio ?? '',
+                      company: notifier.dataObj?.company ?? '',
+                      location: notifier.dataObj?.location ?? '',
                     ),
-                    SampleFeatureDetailTab(data: data),
+                    SampleFeatureDetailTab(data: notifier.dataObj),
                   ],
                 ),
               ),

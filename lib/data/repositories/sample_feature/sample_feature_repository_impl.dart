@@ -35,7 +35,11 @@ class SampleFeatureRepositoryImpl
       );
 
       // Without cache
-      // return await apiService.getUsers(page: page, perPage: perPage);
+      // return await apiService.getUsers(
+      //   cancelToken: cancelToken,
+      //   page: page,
+      //   perPage: perPage,
+      // );
     } catch (e, stack) {
       log('$tag error = $e, $stack');
       rethrow;

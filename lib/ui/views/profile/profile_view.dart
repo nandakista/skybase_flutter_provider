@@ -1,39 +1,22 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 import 'package:skybase/config/themes/app_style.dart';
 import 'package:skybase/config/base/main_navigation.dart';
-import 'package:skybase/ui/views/profile/bloc/profile_bloc.dart';
+import 'package:skybase/ui/views/profile/profile_notifier.dart';
 import 'package:skybase/ui/views/settings/setting_view.dart';
 import 'package:skybase/ui/widgets/base/sky_view.dart';
 import 'package:skybase/ui/widgets/sky_image.dart';
 
 import 'component/repository/profile_repository_view.dart';
 
-class ProfileView extends StatefulWidget {
+class ProfileView extends StatelessWidget {
   static const String route = '/profile';
 
   const ProfileView({Key? key}) : super(key: key);
 
   @override
-  State<ProfileView> createState() => _ProfileViewState();
-}
-
-class _ProfileViewState extends State<ProfileView>
-    with AutomaticKeepAliveClientMixin {
-
-  @override
-  void initState() {
-    Future.microtask(() => context.read<ProfileBloc>().add(LoadProfile()));
-    super.initState();
-  }
-
-  @override
-  bool get wantKeepAlive => true;
-
-  @override
   Widget build(BuildContext context) {
-    super.build(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -49,19 +32,15 @@ class _ProfileViewState extends State<ProfileView>
           const SizedBox(width: 8),
         ],
       ),
-      body: BlocBuilder<ProfileBloc, ProfileState>(
-        builder: (context, state) {
-          final bloc = context.read<ProfileBloc>();
-          final data = (state is ProfileLoaded) ? state.result : null;
-          final errMessage = (state is ProfileError) ? state.message : null;
-
+      body: Consumer<ProfileNotifier>(
+        builder: (context, notifier, child) {
           return SkyView.page(
-            loadingEnabled: state is ProfileLoading,
-            errorEnabled: state is ProfileError,
+            loadingEnabled: notifier.isLoading,
+            errorEnabled: notifier.isError,
             emptyEnabled: false,
-            errorTitle: errMessage,
-            onRetry: () => bloc.add(LoadProfile()),
-            onRefresh: () => bloc.add(LoadProfile()),
+            errorTitle: notifier.errorMessage,
+            onRetry: () => notifier.onRefresh(context),
+            onRefresh: () => notifier.onRefresh(context),
             child: SingleChildScrollView(
               physics: const AlwaysScrollableScrollPhysics(),
               padding: const EdgeInsets.symmetric(horizontal: 24),
@@ -70,14 +49,14 @@ class _ProfileViewState extends State<ProfileView>
                   SkyImage(
                     shapeImage: ShapeImage.circle,
                     size: 40,
-                    src: '${data?.avatarUrl}&s=200',
+                    src: '${notifier.dataObj?.avatarUrl}&s=200',
                   ),
                   const SizedBox(height: 12),
                   Text(
-                    data?.name ?? '--',
+                    notifier.dataObj?.name ?? '--',
                     style: AppStyle.headline3,
                   ),
-                  Text(data?.bio ?? '--'),
+                  Text(notifier.dataObj?.bio ?? '--'),
                   const SizedBox(height: 24),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -85,7 +64,7 @@ class _ProfileViewState extends State<ProfileView>
                       Column(
                         children: [
                           Text(
-                            '${data?.repository ?? 0}',
+                            '${notifier.dataObj?.repository ?? 0}',
                             style: AppStyle.headline3,
                           ),
                           const Text('Repository'),
@@ -94,7 +73,7 @@ class _ProfileViewState extends State<ProfileView>
                       Column(
                         children: [
                           Text(
-                            '${data?.followers ?? 0}',
+                            '${notifier.dataObj?.followers ?? 0}',
                             style: AppStyle.headline3,
                           ),
                           const Text('Follower'),
@@ -103,7 +82,7 @@ class _ProfileViewState extends State<ProfileView>
                       Column(
                         children: [
                           Text(
-                            '${data?.following ?? 0}',
+                            '${notifier.dataObj?.following ?? 0}',
                             style: AppStyle.headline3,
                           ),
                           const Text('Following'),
@@ -115,13 +94,13 @@ class _ProfileViewState extends State<ProfileView>
                   Row(
                     children: [
                       const Icon(Icons.location_city),
-                      Text(' ${data?.company ?? '--'}'),
+                      Text(' ${notifier.dataObj?.company ?? '--'}'),
                     ],
                   ),
                   Row(
                     children: [
                       const Icon(Icons.location_on),
-                      Text(' ${data?.location ?? '--'}'),
+                      Text(' ${notifier.dataObj?.location ?? '--'}'),
                     ],
                   ),
                   const SizedBox(height: 8),
@@ -138,7 +117,7 @@ class _ProfileViewState extends State<ProfileView>
               ),
             ),
           );
-        },
+        }
       ),
     );
   }

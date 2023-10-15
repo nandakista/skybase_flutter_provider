@@ -1,32 +1,22 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 
 import 'package:skybase/app_configuration.dart';
 import 'package:skybase/config/auth_manager/auth_wrapper.dart';
 import 'package:skybase/config/themes/app_style.dart';
 import 'package:skybase/config/themes/theme_manager/theme_manager.dart';
 import 'package:skybase/core/helper/dialog_helper.dart';
-import 'package:skybase/ui/views/settings/bloc/setting_bloc.dart';
+import 'package:skybase/ui/views/settings/setting_notifier.dart';
 import 'package:skybase/ui/widgets/colored_status_bar.dart';
 import 'package:skybase/ui/widgets/sky_appbar.dart';
 import 'package:skybase/ui/widgets/sky_button.dart';
 
-class SettingView extends StatefulWidget {
+class SettingView extends StatelessWidget {
   static const String route = '/setting';
 
   const SettingView({Key? key}) : super(key: key);
-
-  @override
-  State<SettingView> createState() => _SettingViewState();
-}
-
-class _SettingViewState extends State<SettingView> {
-  @override
-  void initState() {
-    super.initState();
-    Future.microtask(() => context.read<SettingBloc>().add(InitLocale()));
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -69,34 +59,40 @@ class _SettingViewState extends State<SettingView> {
                   children: [
                     Flexible(child: Text('txt_language'.tr())),
                     Flexible(
-                      child: BlocBuilder<SettingBloc, SettingState>(
-                        builder: (context, state) {
-                          return Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              const Text('ENG'),
-                              Radio(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          const Text('ENG'),
+                          Consumer<SettingNotifier>(
+                            builder: (context, notifier, child) {
+                              return Radio<String>(
                                 value: 'en',
-                                groupValue: state.languageCode,
+                                groupValue: notifier.languageCode,
                                 onChanged: (value) {
-                                  context.read<SettingBloc>().add(
-                                        UpdateLocale(context, value.toString()),
-                                      );
+                                  notifier.onUpdateLocale(
+                                    context,
+                                    languageCode: value.toString(),
+                                  );
                                 },
-                              ),
-                              const Text('ID'),
-                              Radio(
+                              );
+                            },
+                          ),
+                          const Text('ID'),
+                          Consumer<SettingNotifier>(
+                            builder: (context, notifier, child) {
+                              return Radio(
                                 value: 'id',
-                                groupValue: state.languageCode,
+                                groupValue: notifier.languageCode,
                                 onChanged: (value) async {
-                                  context.read<SettingBloc>().add(
-                                        UpdateLocale(context, value.toString()),
-                                      );
+                                  notifier.onUpdateLocale(
+                                    context,
+                                    languageCode: value.toString(),
+                                  );
                                 },
-                              ),
-                            ],
-                          );
-                        },
+                              );
+                            }
+                          ),
+                        ],
                       ),
                     )
                   ],
