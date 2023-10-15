@@ -6,7 +6,7 @@ import 'package:skybase/core/database/storage/storage_manager.dart';
    Varcant
    nanda.kista@gmail.com
 */
-enum RequestState { initial, empty, loading, success, error }
+enum RequestState { initial, empty, loading, success, error, shimmering }
 
 extension RequestStateExt on RequestState {
   bool get isInitial => this == RequestState.initial;
@@ -14,6 +14,7 @@ extension RequestStateExt on RequestState {
   bool get isLoading => this == RequestState.loading;
   bool get isSuccess => this == RequestState.success;
   bool get isError => this == RequestState.error;
+  bool get isShimmering => this == RequestState.shimmering;
 }
 
 abstract class BaseNotifier<T> extends ChangeNotifier {
@@ -34,11 +35,13 @@ abstract class BaseNotifier<T> extends ChangeNotifier {
 
   bool get isLoading => state.isLoading;
 
+  bool get isShimmering => isLoading && !isEmpty;
+
   bool get isError => errorMessage.isNotEmpty && state.isError;
 
-  bool get isEmpty => dataList.isEmpty && dataObj == null && state.isEmpty;
+  bool get isEmpty => state.isEmpty;
 
-  bool get isSuccess => !isEmpty && !isError && !isLoading;
+  bool get isSuccess => !isEmpty && !isError && !isLoading && state.isSuccess;
 
   void showLoading() {
     errorMessage = '';
@@ -65,7 +68,11 @@ abstract class BaseNotifier<T> extends ChangeNotifier {
   }) {
     if (data != null) dataObj = data;
     if (list.isNotEmpty) dataList = list;
-    state = RequestState.success;
+    if (dataList.isEmpty && dataObj == null) {
+      state = RequestState.empty;
+    } else {
+      state = RequestState.success;
+    }
     notifyListeners();
   }
 
