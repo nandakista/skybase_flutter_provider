@@ -1,12 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
 import 'package:skybase/app_configuration.dart';
 import 'package:skybase/config/auth_manager/auth_wrapper.dart';
 import 'package:skybase/config/themes/app_style.dart';
-import 'package:skybase/config/themes/theme_manager/theme_manager.dart';
+import 'package:skybase/config/themes/theme_manager.dart';
 import 'package:skybase/core/helper/dialog_helper.dart';
 import 'package:skybase/ui/views/settings/setting_notifier.dart';
 import 'package:skybase/ui/widgets/colored_status_bar.dart';
@@ -102,13 +101,15 @@ class SettingView extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text('txt_dark_mode'.tr()),
-                    BlocBuilder<ThemeManager, ThemeState>(
-                      builder: (context, state) => Switch(
-                        value: state is IsDarkMode,
-                        onChanged: (value) {
-                          context.read<ThemeManager>().changeTheme();
-                        },
-                      ),
+                    Consumer<ThemeManager>(
+                      builder: (context, notifier, child) {
+                        return Switch(
+                          value: notifier.isDark,
+                          onChanged: (value) {
+                            notifier.changeTheme();
+                          },
+                        );
+                      }
                     ),
                   ],
                 ),

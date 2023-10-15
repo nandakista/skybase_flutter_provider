@@ -21,7 +21,7 @@ import 'package:skybase/ui/views/settings/setting_notifier.dart';
 
 import 'config/network/api_config.dart';
 import 'config/themes/app_theme.dart';
-import 'config/themes/theme_manager/theme_manager.dart';
+import 'config/themes/theme_manager.dart';
 import 'config/app/app_info.dart';
 import 'core/database/storage/storage_manager.dart';
 import 'core/database/secure_storage/secure_storage_manager.dart';

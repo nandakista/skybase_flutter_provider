@@ -3,11 +3,11 @@ import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:skybase/config/themes/theme_manager.dart';
 
 import 'package:skybase/core/database/storage/storage_key.dart';
 import 'package:skybase/core/database/storage/storage_manager.dart';
 import 'package:skybase/core/database/secure_storage/secure_storage_manager.dart';
-import 'package:skybase/config/themes/theme_manager/theme_manager.dart';
 import 'package:skybase/data/models/user/user.dart';
 import 'package:skybase/service_locator.dart';
 import 'package:skybase/config/base/main_navigation.dart';
