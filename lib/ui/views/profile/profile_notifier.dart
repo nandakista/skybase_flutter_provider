@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 import 'package:skybase/config/base/base_notifier.dart';
 import 'package:skybase/data/models/user/user.dart';
 import 'package:skybase/data/repositories/auth/auth_repository.dart';

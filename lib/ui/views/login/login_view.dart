@@ -1,6 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 import 'package:skybase/core/helper/validator_helper.dart';
 import 'package:skybase/config/themes/app_colors.dart';
 import 'package:skybase/config/themes/app_style.dart';
