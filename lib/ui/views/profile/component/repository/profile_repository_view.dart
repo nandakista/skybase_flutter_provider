@@ -36,7 +36,7 @@ class ProfileRepositoryView extends StatelessWidget {
                   size: 30,
                   src: '${item.owner.avatarUrl}&s=200',
                 ),
-                title: Text(item.name ?? '', style: AppStyle.body2),
+                title: Text(item.name, style: AppStyle.body2),
                 subtitle: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [

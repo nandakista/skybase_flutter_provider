@@ -31,7 +31,7 @@ class IntroNotifier extends ChangeNotifier {
         duration: const Duration(milliseconds: 260),
       );
     } else {
-      StorageManager.find.save(StorageKey.FIRST_INSTALL, false);
+      StorageManager.instance.save(StorageKey.FIRST_INSTALL, false);
       MainNavigation.push(context, LoginView.route);
     }
   }

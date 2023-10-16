@@ -8,7 +8,7 @@ import 'package:skybase/core/database/storage/storage_manager.dart';
    nanda.kista@gmail.com
 */
 abstract class PaginationNotifier<T> extends ChangeNotifier {
-  StorageManager storage = StorageManager.find;
+  StorageManager storage = StorageManager.instance;
 
   CancelToken cancelToken = CancelToken();
   int perPage = 20;

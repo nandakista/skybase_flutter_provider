@@ -9,17 +9,20 @@ class SettingNotifier extends ChangeNotifier {
   late String languageCode;
 
   SettingNotifier() {
-    languageCode = LocaleManager.find.getCurrentLocale.languageCode;
+    languageCode = LocaleManager.instance.getCurrentLocale.languageCode;
   }
 
   void onUpdateLocale(BuildContext context, {required String languageCode}) {
     this.languageCode = languageCode;
-    StorageManager.find.save<String>(StorageKey.CURRENT_LOCALE, languageCode);
-    LocaleManager.find.updateLocale(context, Locale(languageCode));
+    StorageManager.instance.save<String>(
+      StorageKey.CURRENT_LOCALE,
+      languageCode,
+    );
+    LocaleManager.instance.updateLocale(context, Locale(languageCode));
   }
 
   void onLogout(BuildContext context) async {
     LoadingDialog.show(context);
-    AuthManager.find.logout();
+    AuthManager.instance.logout();
   }
 }

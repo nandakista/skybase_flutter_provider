@@ -52,7 +52,7 @@ class LoginNotifier extends ChangeNotifier {
         cancelToken: cancelToken,
         username: 'nandakista',
       );
-      await AuthManager.find.login(
+      await AuthManager.instance.login(
         user: response,
         token: 'dummy',
         refreshToken: 'dummyRefresh',

@@ -16,9 +16,9 @@ void main() async {
   runApp(
     EasyLocalization(
       path: 'lib/core/localization/languages',
-      supportedLocales: LocaleManager.find.locales.values.toList(),
-      startLocale: LocaleManager.find.getCurrentLocale,
-      fallbackLocale: LocaleManager.find.fallbackLocale,
+      supportedLocales: LocaleManager.instance.locales.values.toList(),
+      startLocale: LocaleManager.instance.getCurrentLocale,
+      fallbackLocale: LocaleManager.instance.fallbackLocale,
       useFallbackTranslations: true,
       child: const App(),
     ),
@@ -32,7 +32,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => ThemeManager.find),
+        ChangeNotifierProvider(create: (_) => ThemeManager.instance),
         // Add global notifier here..
       ],
       child: Selector<ThemeManager, bool>(

@@ -18,7 +18,7 @@ extension RequestStateExt on RequestState {
 }
 
 abstract class BaseNotifier<T> extends ChangeNotifier {
-  StorageManager storage = StorageManager.find;
+  StorageManager storage = StorageManager.instance;
 
   CancelToken cancelToken = CancelToken();
   String errorMessage = '';

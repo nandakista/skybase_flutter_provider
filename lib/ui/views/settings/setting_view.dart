@@ -41,7 +41,7 @@ class SettingView extends StatelessWidget {
               SkyButton(
                 onPressed: () {
                   LoadingDialog.show(context);
-                  AuthManager.find.logout();
+                  AuthManager.instance.logout();
                 },
                 text: 'txt_logout'.tr(),
               ),
