@@ -33,6 +33,7 @@ class App extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => ThemeManager.find),
+        // Add global notifier here..
       ],
       child: Selector<ThemeManager, bool>(
         selector: (context, state) => state.isDark,

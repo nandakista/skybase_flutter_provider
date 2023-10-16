@@ -12,7 +12,6 @@ class ThemeManager extends ChangeNotifier {
 
   ThemeManager() {
     isDark = StorageManager.find.get<bool?>(StorageKey.IS_DARK_THEME) ?? false;
-    print('init theme manager');
     notifyListeners();
   }
 
