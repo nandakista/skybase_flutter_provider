@@ -4,7 +4,6 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:skybase/config/auth_manager/auth_manager.dart';
 import 'package:skybase/core/localization/locale_manager.dart';
 import 'package:skybase/data/repositories/auth/auth_repository.dart';
 import 'package:skybase/data/repositories/auth/auth_repository_impl.dart';
@@ -19,6 +18,7 @@ import 'package:skybase/ui/views/profile/profile_notifier.dart';
 import 'package:skybase/ui/views/sample_feature/list/sample_feature_list_notifier.dart';
 import 'package:skybase/ui/views/settings/setting_notifier.dart';
 
+import 'config/auth_manager/auth_manager.dart';
 import 'config/network/api_config.dart';
 import 'config/themes/app_theme.dart';
 import 'config/themes/theme_manager.dart';
@@ -48,15 +48,15 @@ class ServiceLocator {
       aOptions: AndroidOptions(encryptedSharedPreferences: true),
     ));
     sl.registerLazySingleton(() => Dio());
-    sl.registerLazySingleton(() => DioClient()..init());
+    sl.registerLazySingleton(() => DioClient());
     sl.registerSingleton<SharedPreferences>(sharedPreferences);
 
     // _initService
     sl.registerLazySingleton(() => SecureStorageManager());
     sl.registerSingleton(StorageManager());
     sl.registerSingleton(LocaleManager());
-    sl.registerFactory(() => AuthManager());
     sl.registerFactory(() => ThemeManager());
+    sl.registerSingleton(AuthManager());
 
     // Repository
     sl.registerLazySingleton<AuthRepository>(

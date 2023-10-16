@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:skybase/app_configuration.dart';
-import 'package:skybase/config/auth_manager/auth_wrapper.dart';
+import 'package:skybase/config/auth_manager/auth_manager.dart';
 import 'package:skybase/config/themes/app_style.dart';
 import 'package:skybase/config/themes/theme_manager.dart';
 import 'package:skybase/core/helper/dialog_helper.dart';
@@ -19,65 +19,64 @@ class SettingView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AuthWrapper(
-      builder: (authManager, state) => ColoredStatusBar(
-        brightness: Brightness.dark,
-        child: Scaffold(
-          appBar: SkyAppBar.secondary(title: 'txt_setting'.tr()),
-          bottomNavigationBar: Padding(
-            padding: EdgeInsets.fromLTRB(
-              24,
-              12,
-              24,
-              MediaQuery.paddingOf(context).bottom + 12,
-            ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  '${'txt_version'.tr()} ${AppConfiguration.appVersion}',
-                  style: AppStyle.body2.copyWith(color: Colors.grey),
-                ),
-                const SizedBox(height: 12),
-                SkyButton(
-                  onPressed: () {
-                    LoadingDialog.show(context);
-                    authManager.logout();
-                  },
-                  text: 'txt_logout'.tr(),
-                ),
-              ],
-            ),
+    return ColoredStatusBar(
+      brightness: Brightness.dark,
+      child: Scaffold(
+        appBar: SkyAppBar.secondary(title: 'txt_setting'.tr()),
+        bottomNavigationBar: Padding(
+          padding: EdgeInsets.fromLTRB(
+            24,
+            12,
+            24,
+            MediaQuery.paddingOf(context).bottom + 12,
           ),
-          body: SingleChildScrollView(
-            padding: const EdgeInsets.all(24),
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Flexible(child: Text('txt_language'.tr())),
-                    Flexible(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          const Text('ENG'),
-                          Consumer<SettingNotifier>(
-                            builder: (context, notifier, child) {
-                              return Radio<String>(
-                                value: 'en',
-                                groupValue: notifier.languageCode,
-                                onChanged: (value) {
-                                  notifier.onUpdateLocale(
-                                    context,
-                                    languageCode: value.toString(),
-                                  );
-                                },
-                              );
-                            },
-                          ),
-                          const Text('ID'),
-                          Consumer<SettingNotifier>(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                '${'txt_version'.tr()} ${AppConfiguration.appVersion}',
+                style: AppStyle.body2.copyWith(color: Colors.grey),
+              ),
+              const SizedBox(height: 12),
+              SkyButton(
+                onPressed: () {
+                  LoadingDialog.show(context);
+                  AuthManager.find.logout();
+                },
+                text: 'txt_logout'.tr(),
+              ),
+            ],
+          ),
+        ),
+        body: SingleChildScrollView(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Flexible(child: Text('txt_language'.tr())),
+                  Flexible(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        const Text('ENG'),
+                        Consumer<SettingNotifier>(
+                          builder: (context, notifier, child) {
+                            return Radio<String>(
+                              value: 'en',
+                              groupValue: notifier.languageCode,
+                              onChanged: (value) {
+                                notifier.onUpdateLocale(
+                                  context,
+                                  languageCode: value.toString(),
+                                );
+                              },
+                            );
+                          },
+                        ),
+                        const Text('ID'),
+                        Consumer<SettingNotifier>(
                             builder: (context, notifier, child) {
                               return Radio(
                                 value: 'id',
@@ -90,18 +89,18 @@ class SettingView extends StatelessWidget {
                                 },
                               );
                             }
-                          ),
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-                const Divider(color: Colors.grey),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text('txt_dark_mode'.tr()),
-                    Consumer<ThemeManager>(
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+              const Divider(color: Colors.grey),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text('txt_dark_mode'.tr()),
+                  Consumer<ThemeManager>(
                       builder: (context, notifier, child) {
                         return Switch(
                           value: notifier.isDark,
@@ -110,11 +109,10 @@ class SettingView extends StatelessWidget {
                           },
                         );
                       }
-                    ),
-                  ],
-                ),
-              ],
-            ),
+                  ),
+                ],
+              ),
+            ],
           ),
         ),
       ),

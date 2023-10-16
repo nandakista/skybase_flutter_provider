@@ -1,8 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
-import 'package:skybase/config/auth_manager/auth_manager.dart';
 import 'package:skybase/config/themes/theme_manager.dart';
 import 'package:skybase/core/localization/locale_manager.dart';
 
@@ -32,32 +30,27 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
+    return MultiProvider(
       providers: [
-        BlocProvider(create: (_) => sl<AuthManager>()..init()),
+        ChangeNotifierProvider(create: (_) => ThemeManager.find),
       ],
-      child: MultiProvider(
-        providers: [
-          ChangeNotifierProvider(create: (_) => sl<ThemeManager>()),
-        ],
-        child: Selector<ThemeManager, bool>(
-            selector: (context, state) => state.isDark,
-            builder: (context, isDarkMode, child) {
-              return MaterialApp.router(
-                debugShowCheckedModeBanner: false,
-                title: AppConfiguration.appName,
-                theme: AppTheme.light(),
-                darkTheme: AppTheme.dark(),
-                themeMode: (isDarkMode) ? ThemeMode.dark : ThemeMode.light,
-                localizationsDelegates: context.localizationDelegates,
-                supportedLocales: context.supportedLocales,
-                locale: context.locale,
-                routeInformationParser: AppRoutes.router.routeInformationParser,
-                routeInformationProvider: AppRoutes.router.routeInformationProvider,
-                routerDelegate: AppRoutes.router.routerDelegate,
-              );
-            }
-        ),
+      child: Selector<ThemeManager, bool>(
+        selector: (context, state) => state.isDark,
+        builder: (context, isDarkMode, child) {
+          return MaterialApp.router(
+            debugShowCheckedModeBanner: false,
+            title: AppConfiguration.appName,
+            theme: AppTheme.light(),
+            darkTheme: AppTheme.dark(),
+            themeMode: (isDarkMode) ? ThemeMode.dark : ThemeMode.light,
+            localizationsDelegates: context.localizationDelegates,
+            supportedLocales: context.supportedLocales,
+            locale: context.locale,
+            routeInformationParser: AppRoutes.router.routeInformationParser,
+            routeInformationProvider: AppRoutes.router.routeInformationProvider,
+            routerDelegate: AppRoutes.router.routerDelegate,
+          );
+        },
       ),
     );
   }

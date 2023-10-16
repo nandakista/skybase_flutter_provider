@@ -52,15 +52,11 @@ class LoginNotifier extends ChangeNotifier {
         cancelToken: cancelToken,
         username: 'nandakista',
       );
-      await AuthManager.find.saveAuthData(
+      await AuthManager.find.login(
         user: response,
         token: 'dummy',
         refreshToken: 'dummyRefresh',
       );
-      if (context.mounted) {
-        LoadingDialog.dismiss(context);
-        MainNavigation.popAllReplacement(context, MainNavView.route);
-      }
     } catch (e) {
       LoadingDialog.dismiss(context);
       DialogHelper.failed(context: context, message: e.toString());
