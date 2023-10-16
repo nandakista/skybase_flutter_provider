@@ -5,18 +5,18 @@ import 'package:skybase/core/helper/validator_helper.dart';
 import 'package:skybase/config/themes/app_colors.dart';
 import 'package:skybase/config/themes/app_style.dart';
 import 'package:skybase/ui/views/login/login_notifier.dart';
+import 'package:skybase/ui/widgets/base/notifier_view.dart';
 import 'package:skybase/ui/widgets/keyboard_dismissible.dart';
 import 'package:skybase/ui/widgets/sky_button.dart';
 import 'package:skybase/ui/widgets/sky_form_field.dart';
 
-class LoginView extends StatelessWidget {
+class LoginView extends NotifierView<LoginNotifier> {
   static const String route = '/login';
 
   const LoginView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final notifier = context.read<LoginNotifier>();
     return KeyboardDismissible(
       child: Scaffold(
         body: Center(
@@ -52,7 +52,7 @@ class LoginView extends StatelessWidget {
                 ),
                 const SizedBox(height: 40),
                 Form(
-                  key: notifier.formKey,
+                  key: notifier(context).formKey,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -60,7 +60,7 @@ class LoginView extends StatelessWidget {
                       SkyFormField(
                         label: 'txt_phone'.tr(),
                         hint: 'txt_phone'.tr(),
-                        controller: notifier.phoneController,
+                        controller: notifier(context).phoneController,
                         keyboardType: TextInputType.phone,
                         icon: Icons.phone,
                         validator: (value) => ValidatorHelper.field(
@@ -73,12 +73,12 @@ class LoginView extends StatelessWidget {
                       SkyPasswordFormField(
                         label: 'txt_password'.tr(),
                         hint: 'txt_password'.tr(),
-                        controller: notifier.passwordController,
+                        controller: notifier(context).passwordController,
                         icon: Icons.lock,
-                        hiddenText: notifier.isHiddenPassword,
+                        hiddenText: notifier(context).isHiddenPassword,
                         endIcon: IconButton(
                           icon: const Icon(Icons.visibility_off),
-                          onPressed: notifier.hidePassword,
+                          onPressed: notifier(context).hidePassword,
                         ),
                         validator: (value) => ValidatorHelper.field(
                           title: 'txt_password'.tr(),
@@ -90,7 +90,7 @@ class LoginView extends StatelessWidget {
                       SkyButton(
                         onPressed: () {
                           FocusScope.of(context).unfocus();
-                          notifier.login(context);
+                          notifier(context).login(context);
                         },
                         text: 'txt_login'.tr(),
                         icon: Icons.arrow_forward,
@@ -103,7 +103,7 @@ class LoginView extends StatelessWidget {
                   children: [
                     const SizedBox(height: 12),
                     SkyButton(
-                      onPressed: () => notifier.bypassLogin(context),
+                      onPressed: () => notifier(context).bypassLogin(context),
                       text: 'txt_skip'.tr(),
                       icon: Icons.arrow_forward,
                       color: AppColors.primary,
