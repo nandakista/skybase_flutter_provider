@@ -15,12 +15,14 @@ class ProfileNotifier extends BaseNotifier<User> {
     return this;
   }
 
-  void onRefresh(BuildContext context) {
-    onGetProfile();
-    context.read<ProfileRepositoryNotifier>().onRefresh();
+  Future<void> onRefresh(BuildContext context) async {
+    await onGetProfile();
+    if (context.mounted) {
+      await context.read<ProfileRepositoryNotifier>().onRefresh();
+    }
   }
 
-  void onGetProfile() async {
+  Future<void> onGetProfile() async {
     showLoading();
     try {
       final response = await repository.getProfile(

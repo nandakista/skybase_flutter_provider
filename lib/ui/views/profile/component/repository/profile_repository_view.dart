@@ -19,7 +19,6 @@ class ProfileRepositoryView extends StatelessWidget {
           errorEnabled: notifier.isError,
           emptyEnabled: notifier.isEmpty,
           errorTitle: notifier.errorMessage,
-          onRefresh: () => notifier.onRefresh(),
           onRetry: () => notifier.onRefresh(),
           loadingView: const ShimmerList(),
           child: ListView.builder(

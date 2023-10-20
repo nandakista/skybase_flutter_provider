@@ -11,6 +11,7 @@ import 'package:skybase/config/base/main_navigation.dart';
 import 'package:skybase/ui/views/sample_feature/detail/sample_feature_detail_view.dart';
 import 'package:skybase/ui/views/sample_feature/list/sample_feature_list_notifier.dart';
 import 'package:skybase/ui/widgets/base/sky_pagination_view.dart';
+import 'package:skybase/ui/widgets/shimmer/shimmer_list.dart';
 import 'package:skybase/ui/widgets/sky_appbar.dart';
 import 'package:skybase/ui/widgets/sky_image.dart';
 
@@ -27,6 +28,7 @@ class SampleFeatureListView extends StatelessWidget {
         builder: (context, notifier, child) {
           return SkyPaginationView<SampleFeature>(
             pagingController: notifier.pagingController,
+            loadingView: const ShimmerList(),
             onRefresh: notifier.onRefresh,
             itemBuilder: (BuildContext context, item, int index) {
               return ListTile(

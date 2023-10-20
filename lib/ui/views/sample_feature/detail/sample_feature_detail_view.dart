@@ -31,25 +31,22 @@ class SampleFeatureDetailView extends StatelessWidget {
               errorTitle: notifier.errorMessage,
               onRefresh: () => notifier.onRefresh(),
               onRetry: () => notifier.onRefresh(),
-              child: SingleChildScrollView(
-                physics: const AlwaysScrollableScrollPhysics(),
-                child: Column(
-                  children: [
-                    SampleFeatureDetailHeader(
-                      avatar: notifier.dataObj?.avatarUrl ?? '',
-                      repositoryCount: notifier.dataObj?.repository ?? 0,
-                      followerCount: notifier.dataObj?.followers ?? 0,
-                      followingCount: notifier.dataObj?.following ?? 0,
-                    ),
-                    SampleFeatureDetailInfo(
-                      name: notifier.dataObj?.name ?? '',
-                      bio: notifier.dataObj?.bio ?? '',
-                      company: notifier.dataObj?.company ?? '',
-                      location: notifier.dataObj?.location ?? '',
-                    ),
-                    SampleFeatureDetailTab(data: notifier.dataObj),
-                  ],
-                ),
+              child: Column(
+                children: [
+                  SampleFeatureDetailHeader(
+                    avatar: notifier.dataObj?.avatarUrl ?? '',
+                    repositoryCount: notifier.dataObj?.repository ?? 0,
+                    followerCount: notifier.dataObj?.followers ?? 0,
+                    followingCount: notifier.dataObj?.following ?? 0,
+                  ),
+                  SampleFeatureDetailInfo(
+                    name: notifier.dataObj?.name ?? '',
+                    bio: notifier.dataObj?.bio ?? '',
+                    company: notifier.dataObj?.company ?? '',
+                    location: notifier.dataObj?.location ?? '',
+                  ),
+                  SampleFeatureDetailTab(data: notifier.dataObj),
+                ],
               ),
             );
           },

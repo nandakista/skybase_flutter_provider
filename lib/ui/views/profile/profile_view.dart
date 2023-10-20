@@ -41,8 +41,7 @@ class ProfileView extends StatelessWidget {
             errorTitle: notifier.errorMessage,
             onRetry: () => notifier.onRefresh(context),
             onRefresh: () => notifier.onRefresh(context),
-            child: SingleChildScrollView(
-              physics: const AlwaysScrollableScrollPhysics(),
+            child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24),
               child: Column(
                 children: [

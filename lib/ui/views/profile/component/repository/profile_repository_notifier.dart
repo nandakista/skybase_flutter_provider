@@ -12,11 +12,11 @@ class ProfileRepositoryNotifier extends BaseNotifier<Repo> {
     return this;
   }
 
-  void onRefresh() {
-    onGetRepository();
+  Future<void> onRefresh() async {
+    await onGetRepository();
   }
 
-  void onGetRepository() async {
+  Future<void> onGetRepository() async {
     showLoading();
     try {
       final response = await repository.getProfileRepository(

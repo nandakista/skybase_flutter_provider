@@ -22,6 +22,10 @@ abstract class PaginationNotifier<T> extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> deleteCached(String cacheKey) async {
+    await storage.delete(cacheKey.toString());
+  }
+
   void loadData(Function() onLoad) {
     pagingController.addPageRequestListener((page) => onLoad());
   }

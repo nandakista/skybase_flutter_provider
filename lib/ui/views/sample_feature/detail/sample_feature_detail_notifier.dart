@@ -1,6 +1,7 @@
 import 'package:skybase/config/base/base_notifier.dart';
 import 'package:skybase/data/models/sample_feature/sample_feature.dart';
 import 'package:skybase/data/repositories/sample_feature/sample_feature_repository.dart';
+import 'package:skybase/data/sources/local/cached_key.dart';
 
 class SampleFeatureDetailNotifier extends BaseNotifier<SampleFeature> {
   final SampleFeatureRepository repository;
@@ -20,8 +21,12 @@ class SampleFeatureDetailNotifier extends BaseNotifier<SampleFeature> {
     return this;
   }
 
-  void onRefresh() {
-    onGetDetailUser();
+  Future<void> onRefresh() async {
+    await deleteCached(
+      CachedKey.SAMPLE_FEATURE_DETAIL,
+      cacheId: idArgs.toString(),
+    );
+    await onGetDetailUser();
   }
 
   Future<void> onGetDetailUser() async {

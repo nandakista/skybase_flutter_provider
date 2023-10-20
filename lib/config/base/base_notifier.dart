@@ -43,6 +43,14 @@ abstract class BaseNotifier<T> extends ChangeNotifier {
 
   bool get isSuccess => !isEmpty && !isError && !isLoading && state.isSuccess;
 
+  Future<void> deleteCached(String cacheKey, {String? cacheId}) async {
+    if (cacheId != null) {
+      await storage.delete('$cacheKey/$cacheId');
+    } else {
+      await storage.delete(cacheKey.toString());
+    }
+  }
+
   void showLoading() {
     errorMessage = '';
     state = RequestState.loading;
