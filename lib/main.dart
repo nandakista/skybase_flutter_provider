@@ -1,10 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:skybase/config/app/app_info.dart';
 import 'package:skybase/config/themes/theme_manager.dart';
 import 'package:skybase/core/localization/locale_manager.dart';
 
-import 'app_configuration.dart';
 import 'config/themes/app_theme.dart';
 import 'service_locator.dart';
 import 'ui/routes/app_routes.dart';
@@ -40,7 +40,7 @@ class App extends StatelessWidget {
         builder: (context, isDarkMode, child) {
           return MaterialApp.router(
             debugShowCheckedModeBanner: false,
-            title: AppConfiguration.appName,
+            title: 'Skybase Provider',
             theme: AppTheme.light(),
             darkTheme: AppTheme.dark(),
             themeMode: (isDarkMode) ? ThemeMode.dark : ThemeMode.light,

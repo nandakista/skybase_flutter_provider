@@ -1,7 +1,7 @@
 import 'package:skybase/config/network/api_token_manager.dart';
 
-class Config {
-  Config({
+class ConfigData {
+  ConfigData({
     required this.baseUrl,
     required this.clientToken,
     required this.tokenType,

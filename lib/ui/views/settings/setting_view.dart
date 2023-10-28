@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:skybase/app_configuration.dart';
+import 'package:skybase/config/app/app_info.dart';
 import 'package:skybase/config/auth_manager/auth_manager.dart';
 import 'package:skybase/config/themes/app_style.dart';
 import 'package:skybase/config/themes/theme_manager.dart';
@@ -34,7 +34,7 @@ class SettingView extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                '${'txt_version'.tr()} ${AppConfiguration.appVersion}',
+                '${'txt_version'.tr()} ${AppInfo.appVersion}',
                 style: AppStyle.body2.copyWith(color: Colors.grey),
               ),
               const SizedBox(height: 12),
