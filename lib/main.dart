@@ -1,7 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:skybase/config/app/app_info.dart';
 import 'package:skybase/config/themes/theme_manager.dart';
 import 'package:skybase/core/localization/locale_manager.dart';
 

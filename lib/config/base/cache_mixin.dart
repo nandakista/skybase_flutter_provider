@@ -29,7 +29,7 @@ mixin CacheMixin {
 
         CacheData cacheData = CacheData.fromJson(jsonDecode(cache));
         result = List<T>.from(
-          (json.decode(cacheData.value) as List).map(
+          (jsonDecode(cacheData.value) as List).map(
             (x) => CachedModelConverter<T>().fromJson(x),
           ),
         );
@@ -52,7 +52,7 @@ mixin CacheMixin {
     await storage.save<String>(
       cachedKey,
       jsonEncode(
-        CacheData(value: json.encode(result)),
+        CacheData(value: jsonEncode(result)),
       ),
     );
     return result;
