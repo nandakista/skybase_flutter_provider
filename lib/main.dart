@@ -40,8 +40,8 @@ class App extends StatelessWidget {
           return MaterialApp.router(
             debugShowCheckedModeBanner: false,
             title: 'Skybase Provider',
-            theme: AppTheme.light(),
-            darkTheme: AppTheme.dark(),
+            theme: AppTheme.light,
+            darkTheme: AppTheme.dark,
             themeMode: (isDarkMode) ? ThemeMode.dark : ThemeMode.light,
             localizationsDelegates: context.localizationDelegates,
             supportedLocales: context.supportedLocales,
