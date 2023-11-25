@@ -50,10 +50,4 @@ class SampleFeatureListNotifier extends PaginationNotifier<SampleFeature> {
       },
     );
   }
-
-  @override
-  void dispose() {
-    cancelToken.cancel();
-    super.dispose();
-  }
 }

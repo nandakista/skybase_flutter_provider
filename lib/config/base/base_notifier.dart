@@ -85,6 +85,7 @@ abstract class BaseNotifier<T> extends ChangeNotifier {
   }
 
   @override
+  @mustCallSuper
   void dispose() {
     cancelToken.cancel();
     super.dispose();

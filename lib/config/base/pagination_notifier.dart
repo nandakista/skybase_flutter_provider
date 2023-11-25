@@ -45,6 +45,7 @@ abstract class PaginationNotifier<T> extends ChangeNotifier {
   }
 
   @override
+  @mustCallSuper
   void dispose() {
     pagingController.dispose();
     cancelToken.cancel();
