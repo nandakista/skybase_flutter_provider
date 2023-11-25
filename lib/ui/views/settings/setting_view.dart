@@ -19,8 +19,7 @@ class SettingView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ColoredStatusBar(
-      brightness: Brightness.dark,
+    return ColoredStatusBar.primary(
       child: Scaffold(
         appBar: SkyAppBar.secondary(title: 'txt_setting'.tr()),
         bottomNavigationBar: Padding(
