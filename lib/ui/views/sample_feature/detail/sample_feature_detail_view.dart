@@ -11,8 +11,7 @@ import 'package:skybase/ui/widgets/sky_appbar.dart';
 class SampleFeatureDetailView extends StatelessWidget {
   static const String route = '/user-detail';
 
-  const SampleFeatureDetailView({Key? key, required this.usernameArgs})
-      : super(key: key);
+  const SampleFeatureDetailView({super.key, required this.usernameArgs});
 
   final String usernameArgs;
 

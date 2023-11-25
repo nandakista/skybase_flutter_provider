@@ -18,7 +18,7 @@ import 'package:skybase/ui/widgets/sky_image.dart';
 class SampleFeatureListView extends StatelessWidget {
   static const String route = '/user-list';
 
-  const SampleFeatureListView({Key? key}) : super(key: key);
+  const SampleFeatureListView({super.key});
 
   @override
   Widget build(BuildContext context) {

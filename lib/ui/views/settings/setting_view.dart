@@ -15,7 +15,7 @@ import 'package:skybase/ui/widgets/sky_button.dart';
 class SettingView extends StatelessWidget {
   static const String route = '/setting';
 
-  const SettingView({Key? key}) : super(key: key);
+  const SettingView({super.key});
 
   @override
   Widget build(BuildContext context) {

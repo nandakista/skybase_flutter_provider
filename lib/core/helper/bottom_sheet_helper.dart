@@ -21,7 +21,8 @@ class BottomSheetHelper {
       builder: (btmContext) => Container(
         color: Theme.of(context).scaffoldBackgroundColor,
         child: ConstrainedBox(
-          constraints: BoxConstraints(maxHeight: MediaQuery.sizeOf(context).height - 50),
+          constraints:
+              BoxConstraints(maxHeight: MediaQuery.sizeOf(context).height - 50),
           child: Padding(
             padding: const EdgeInsets.fromLTRB(24, 12, 24, 24),
             child: child,
@@ -113,10 +114,8 @@ class BottomSheetHelper {
       barrierColor: barrierColor ?? Colors.black54,
       expand: expand,
       bounce: true,
-      builder: (btmContext) => WillPopScope(
-        onWillPop: () async {
-          return enableBack;
-        },
+      builder: (btmContext) => PopScope(
+        canPop: enableBack,
         child: Material(
           child: Stack(
             alignment: Alignment.topCenter,
@@ -163,10 +162,8 @@ class BottomSheetHelper {
       barrierColor: barrierColor ?? Colors.black54,
       expand: expand,
       bounce: true,
-      builder: (btmContext) => WillPopScope(
-        onWillPop: () async {
-          return enableBack;
-        },
+      builder: (btmContext) => PopScope(
+        canPop: enableBack,
         child: Padding(
           padding: const EdgeInsets.fromLTRB(24, 12, 24, 24),
           child: child,

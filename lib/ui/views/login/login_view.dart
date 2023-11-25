@@ -12,7 +12,7 @@ import 'package:skybase/ui/widgets/sky_form_field.dart';
 class LoginView extends NotifierView<LoginNotifier> {
   static const String route = '/login';
 
-  const LoginView({Key? key}) : super(key: key);
+  const LoginView({super.key});
 
   @override
   Widget build(BuildContext context) {

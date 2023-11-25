@@ -8,7 +8,7 @@ import 'package:skybase/ui/widgets/shimmer/shimmer_list.dart';
 import 'package:skybase/ui/widgets/sky_image.dart';
 
 class ProfileRepositoryView extends StatelessWidget {
-  const ProfileRepositoryView({Key? key}) : super(key: key);
+  const ProfileRepositoryView({super.key});
 
   @override
   Widget build(BuildContext context) {

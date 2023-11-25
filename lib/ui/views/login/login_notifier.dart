@@ -39,8 +39,10 @@ class LoginNotifier extends ChangeNotifier {
           MainNavigation.popAllReplacement(context, MainNavView.route);
         }
       } catch (e) {
-        LoadingDialog.dismiss(context);
-        DialogHelper.failed(context: context, message: e.toString());
+        if (context.mounted) {
+          LoadingDialog.dismiss(context);
+          DialogHelper.failed(context: context, message: e.toString());
+        }
       }
     }
   }
@@ -58,8 +60,10 @@ class LoginNotifier extends ChangeNotifier {
         refreshToken: 'dummyRefresh',
       );
     } catch (e) {
-      LoadingDialog.dismiss(context);
-      DialogHelper.failed(context: context, message: e.toString());
+      if (context.mounted) {
+        LoadingDialog.dismiss(context);
+        DialogHelper.failed(context: context, message: e.toString());
+      }
     }
   }
 

@@ -13,7 +13,7 @@ import 'component/repository/profile_repository_view.dart';
 class ProfileView extends StatelessWidget {
   static const String route = '/profile';
 
-  const ProfileView({Key? key}) : super(key: key);
+  const ProfileView({super.key});
 
   @override
   Widget build(BuildContext context) {
