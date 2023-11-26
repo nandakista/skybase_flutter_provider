@@ -85,5 +85,7 @@
   "txt_permission_warning": "Need Permission",
   "txt_need_permission_storage": "This app need your storage permission",
   "txt_need_permission_camera": "This app need your camera permission",
-  "txt_need_permission_gallery_photo": "This app need your gallery and photo permission"
+  "txt_need_permission_gallery_photo": "This app need your gallery and photo permission",
+  "txt_crash_error_title": "Something Went Wrong!",
+  "txt_crash_error_message": "Sorry, the page you requested is not accessible at this time. Try again in a moment."
 }
