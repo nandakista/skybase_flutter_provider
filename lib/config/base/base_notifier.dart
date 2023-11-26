@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:skybase/core/database/storage/storage_manager.dart';
+import 'package:skybase/core/extension/string_extension.dart';
 
 /* Created by
    Varcant
@@ -21,7 +22,7 @@ abstract class BaseNotifier<T> extends ChangeNotifier {
   StorageManager storage = StorageManager.instance;
 
   CancelToken cancelToken = CancelToken();
-  String errorMessage = '';
+  String? errorMessage;
 
   RequestState state = RequestState.initial;
 
@@ -37,7 +38,7 @@ abstract class BaseNotifier<T> extends ChangeNotifier {
 
   bool get isShimmering => isLoading && !isEmpty;
 
-  bool get isError => errorMessage.isNotEmpty && state.isError;
+  bool get isError => errorMessage.isNotNullAndNotEmpty && state.isError;
 
   bool get isEmpty => state.isEmpty;
 
@@ -52,7 +53,7 @@ abstract class BaseNotifier<T> extends ChangeNotifier {
   }
 
   void showLoading() {
-    errorMessage = '';
+    errorMessage = null;
     state = RequestState.loading;
     notifyListeners();
   }

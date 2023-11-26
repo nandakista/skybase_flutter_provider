@@ -100,7 +100,7 @@ class SkyImage extends StatelessWidget {
           BaseImage(
             src: generateByName.isNotNullAndNotEmpty
                 ? MediaHelper.generateAvatarByName(generateByName ?? 'user')
-                : placeholderSrc ?? 'assets/images/img_empty.png',
+                : placeholderSrc ?? 'assets/images/img_not_found.png',
             width: width,
             height: height,
             fit: placeholderFit ?? BoxFit.contain,

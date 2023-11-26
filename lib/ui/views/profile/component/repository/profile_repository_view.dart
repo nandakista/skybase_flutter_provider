@@ -74,7 +74,7 @@ class ProfileRepositoryView extends StatelessWidget {
                         Row(
                           children: [
                             const SkyImage(
-                              src: 'assets/images/fork.svg',
+                              src: 'assets/images/ic_fork.svg',
                               height: 14,
                               color: AppColors.systemDarkGrey,
                             ),

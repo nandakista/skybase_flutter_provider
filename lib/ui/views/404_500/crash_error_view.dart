@@ -23,7 +23,7 @@ class CrashErrorView extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           const SkyImage(
-            src: 'assets/images/crash_image.png',
+            src: 'assets/images/img_error.png',
             height: 144,
             fit: BoxFit.cover,
           ),

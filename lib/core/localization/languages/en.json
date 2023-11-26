@@ -54,6 +54,7 @@
   "txt_date": "Date",
   "txt_price": "Price",
   "txt_media": "Media",
+  "txt_media_unsupported": "Media unsupported!",
   "txt_preview": "Preview",
   "txt_oops": "Oops",
   "txt_error": "Error",

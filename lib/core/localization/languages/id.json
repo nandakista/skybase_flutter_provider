@@ -55,6 +55,7 @@
   "txt_date": "Tanggal",
   "txt_price": "Harga",
   "txt_media": "Media",
+  "txt_media_unsupported": "Media tidak didukung!",
   "txt_preview": "Preview",
   "txt_oops": "Oops",
   "txt_error": "Error",

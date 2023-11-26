@@ -44,10 +44,7 @@ class LoginView extends NotifierView<LoginNotifier> {
                         ),
                       ),
                       const Flexible(
-                        child: Image(
-                          image: AssetImage('assets/images/img_login.png'),
-                          width: 250,
-                        ),
+                        child: FlutterLogo(size: 160),
                       )
                     ],
                   ),
