@@ -41,7 +41,7 @@ class SampleFeatureListNotifier extends PaginationNotifier<SampleFeature> {
     required int id,
     required String username,
   }) {
-    MainNavigation.push(
+    Navigation.instance.push(
       context,
       SampleFeatureDetailView.route,
       arguments: {

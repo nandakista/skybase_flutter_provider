@@ -32,7 +32,7 @@ class IntroNotifier extends ChangeNotifier {
       );
     } else {
       StorageManager.instance.save(StorageKey.FIRST_INSTALL, false);
-      MainNavigation.push(context, LoginView.route);
+      Navigation.instance.push(context, LoginView.route);
     }
   }
 }

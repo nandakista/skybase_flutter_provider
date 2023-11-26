@@ -4,6 +4,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:skybase/config/base/main_navigation.dart';
 import 'package:skybase/core/localization/locale_manager.dart';
 import 'package:skybase/data/repositories/auth/auth_repository.dart';
 import 'package:skybase/data/repositories/auth/auth_repository_impl.dart';
@@ -20,7 +21,6 @@ import 'package:skybase/ui/views/settings/setting_notifier.dart';
 
 import 'config/auth_manager/auth_manager.dart';
 import 'config/network/api_config.dart';
-import 'config/themes/app_theme.dart';
 import 'config/themes/theme_manager.dart';
 import 'config/app/app_info.dart';
 import 'core/database/storage/storage_manager.dart';
@@ -52,10 +52,11 @@ class ServiceLocator {
 
     // _initService
     sl.registerLazySingleton(() => SecureStorageManager());
-    sl.registerSingleton(StorageManager());
-    sl.registerSingleton(LocaleManager());
-    sl.registerFactory(() => ThemeManager());
+    sl.registerLazySingleton(() => StorageManager());
+    sl.registerLazySingleton(() => LocaleManager());
+    sl.registerLazySingleton(() => ThemeManager());
     sl.registerSingleton(AuthManager());
+    sl.registerLazySingleton(() => Navigation());
 
     // Repository
     sl.registerLazySingleton<AuthRepository>(

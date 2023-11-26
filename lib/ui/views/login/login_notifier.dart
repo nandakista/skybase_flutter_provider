@@ -36,7 +36,7 @@ class LoginNotifier extends ChangeNotifier {
         );
         if (context.mounted) {
           LoadingDialog.dismiss(context);
-          MainNavigation.popAllReplacement(context, MainNavView.route);
+          Navigation.instance.pushAllReplacement(context, MainNavView.route);
         }
       } catch (e) {
         if (context.mounted) {

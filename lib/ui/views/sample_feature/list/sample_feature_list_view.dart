@@ -33,7 +33,7 @@ class SampleFeatureListView extends StatelessWidget {
             itemBuilder: (BuildContext context, item, int index) {
               return ListTile(
                 onTap: () {
-                  MainNavigation.push(
+                  Navigation.instance.push(
                     context,
                     SampleFeatureDetailView.route,
                     arguments: {
