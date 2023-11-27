@@ -76,7 +76,7 @@ class ProfileRepositoryView extends StatelessWidget {
                             const SkyImage(
                               src: 'assets/images/ic_fork.svg',
                               height: 14,
-                              color: AppColors.systemDarkGrey,
+                              color: Colors.grey,
                             ),
                             Text(
                               ' ${item.totalFork}',
