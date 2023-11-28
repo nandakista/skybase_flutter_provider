@@ -157,6 +157,13 @@ class AuthManager {
     await saveUserData(user: user);
     await secureStorage.setToken(value: token);
     await secureStorage.setRefreshToken(value: refreshToken);
+
+    /// TODO : Sync locale from API user locale
+    /// LocaleManager.find.updateLocale(
+    ///   Locale(
+    ///     user.locale ?? LocaleManager.find.fallbackLocale.languageCode,
+    ///   ),
+    /// );
   }
 
   Future<void> saveUserData({required User user}) async {
