@@ -10,10 +10,10 @@ import 'package:skybase/data/sources/local/cached_key.dart';
 import 'package:skybase/config/base/main_navigation.dart';
 import 'package:skybase/ui/views/sample_feature/detail/sample_feature_detail_view.dart';
 import 'package:skybase/ui/views/sample_feature/list/sample_feature_list_notifier.dart';
-import 'package:skybase/ui/widgets/base/sky_pagination_view.dart';
 import 'package:skybase/ui/widgets/shimmer/shimmer_list.dart';
 import 'package:skybase/ui/widgets/sky_appbar.dart';
 import 'package:skybase/ui/widgets/sky_image.dart';
+import 'package:skybase/ui/widgets/sky_view.dart';
 
 class SampleFeatureListView extends StatelessWidget {
   static const String route = '/user-list';
@@ -26,7 +26,7 @@ class SampleFeatureListView extends StatelessWidget {
       appBar: SkyAppBar.secondary(title: 'txt_list_users'.tr()),
       body: Consumer<SampleFeatureListNotifier>(
         builder: (context, notifier, child) {
-          return SkyPaginationView<SampleFeature>(
+          return SkyView.pagination<SampleFeature>(
             pagingController: notifier.pagingController,
             loadingView: const ShimmerList(),
             onRefresh: notifier.onRefresh,

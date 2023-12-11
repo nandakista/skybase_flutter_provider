@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:skybase/config/themes/app_colors.dart';
 import 'package:skybase/config/themes/app_style.dart';
 import 'package:skybase/ui/views/profile/component/repository/profile_repository_notifier.dart';
-import 'package:skybase/ui/widgets/base/sky_view.dart';
+import 'package:skybase/ui/widgets/sky_view.dart';
 import 'package:skybase/ui/widgets/shimmer/shimmer_list.dart';
 import 'package:skybase/ui/widgets/sky_image.dart';
 
