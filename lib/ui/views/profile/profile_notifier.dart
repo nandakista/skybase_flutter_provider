@@ -10,16 +10,17 @@ class ProfileNotifier extends BaseNotifier<User> {
 
   ProfileNotifier(this.repository);
 
-  ProfileNotifier onInit() {
+  @override
+  ProfileNotifier onInit([Map<String, dynamic>? args]) {
+    super.onInit(args);
     loadData(() => onGetProfile());
     return this;
   }
 
-  Future<void> onRefresh(BuildContext context) async {
+  @override
+  Future<void> onRefresh([BuildContext? context]) async {
     await onGetProfile();
-    if (context.mounted) {
-      await context.read<ProfileRepositoryNotifier>().onRefresh();
-    }
+    await context?.read<ProfileRepositoryNotifier>().onRefresh();
   }
 
   Future<void> onGetProfile() async {

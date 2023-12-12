@@ -14,14 +14,8 @@ import 'error_view.dart';
    Varcant
    nanda.kista@gmail.com
 */
-typedef ItemWidgetBuilder<ItemType> = Widget Function(
-  BuildContext context,
-  ItemType item,
-  int index,
-);
-
-class SkyPaginationView<ItemType> extends StatelessWidget {
-  const SkyPaginationView({
+class BasePaginationView<ItemType> extends StatelessWidget {
+  const BasePaginationView({
     super.key,
     required this.pagingController,
     required this.itemBuilder,

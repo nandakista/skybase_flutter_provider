@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:skybase/config/base/base_notifier.dart';
 import 'package:skybase/data/models/sample_feature/sample_feature.dart';
 import 'package:skybase/data/repositories/sample_feature/sample_feature_repository.dart';
@@ -11,17 +12,16 @@ class SampleFeatureDetailNotifier extends BaseNotifier<SampleFeature> {
   late int idArgs;
   late String usernameArgs;
 
-  SampleFeatureDetailNotifier onInit({
-    required int id,
-    required String username,
-  }) {
-    idArgs = id;
-    usernameArgs = username;
+  @override
+  void onInit([Map<String, dynamic>? args]) {
+    idArgs = args?['id'];
+    usernameArgs = args?['username'];
     loadData(() => onGetDetailUser());
-    return this;
+    super.onInit(args);
   }
 
-  Future<void> onRefresh() async {
+  @override
+  Future<void> onRefresh([BuildContext? context]) async {
     await deleteCached(
       CachedKey.SAMPLE_FEATURE_DETAIL,
       cacheId: idArgs.toString(),

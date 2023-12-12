@@ -1,12 +1,14 @@
-import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:skybase/core/database/storage/storage_manager.dart';
-import 'package:skybase/core/extension/string_extension.dart';
-
 /* Created by
    Varcant
    nanda.kista@gmail.com
 */
+
+import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:skybase/config/base/connectivity_mixin.dart';
+import 'package:skybase/core/database/storage/storage_manager.dart';
+import 'package:skybase/core/extension/string_extension.dart';
+
 enum RequestState { initial, empty, loading, success, error, shimmering }
 
 extension RequestStateExt on RequestState {
@@ -18,7 +20,7 @@ extension RequestStateExt on RequestState {
   bool get isShimmering => this == RequestState.shimmering;
 }
 
-abstract class BaseNotifier<T> extends ChangeNotifier {
+abstract class BaseNotifier<T> extends ChangeNotifier with ConnectivityMixin {
   StorageManager storage = StorageManager.instance;
 
   CancelToken cancelToken = CancelToken();
@@ -43,6 +45,15 @@ abstract class BaseNotifier<T> extends ChangeNotifier {
   bool get isEmpty => state.isEmpty;
 
   bool get isSuccess => !isEmpty && !isError && !isLoading && state.isSuccess;
+
+  @mustCallSuper
+  void onInit([Map<String, dynamic>? args]) {
+    listenConnectivity(() {
+      if (isError && !isLoading) onRefresh();
+    });
+  }
+
+  void onRefresh([BuildContext? context]) {}
 
   Future<void> deleteCached(String cacheKey, {String? cacheId}) async {
     if (cacheId != null) {
@@ -88,6 +99,7 @@ abstract class BaseNotifier<T> extends ChangeNotifier {
   @override
   @mustCallSuper
   void dispose() {
+    cancelConnectivity();
     cancelToken.cancel();
     super.dispose();
   }

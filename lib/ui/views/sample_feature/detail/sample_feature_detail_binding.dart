@@ -15,11 +15,7 @@ class SampleFeatureBinding extends Bindings {
   ) {
     return [
       ChangeNotifierProvider(
-        create: (_) => sl<SampleFeatureDetailNotifier>()
-          ..onInit(
-            id: args['id'] as int,
-            username: args['username'] as String,
-          ),
+        create: (_) => sl<SampleFeatureDetailNotifier>()..onInit(args),
       ),
     ];
   }

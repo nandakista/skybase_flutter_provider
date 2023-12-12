@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:skybase/config/base/base_notifier.dart';
 import 'package:skybase/data/models/repo/repo.dart';
 import 'package:skybase/data/repositories/auth/auth_repository.dart';
@@ -7,12 +8,15 @@ class ProfileRepositoryNotifier extends BaseNotifier<Repo> {
 
   ProfileRepositoryNotifier(this.repository);
 
-  ProfileRepositoryNotifier onInit() {
+  @override
+  void onInit([Map<String, dynamic>? args]) {
     loadData(() => onGetRepository());
-    return this;
+    super.onInit(args);
   }
 
-  Future<void> onRefresh() async {
+  @override
+  Future<void> onRefresh([BuildContext? context]) async {
+    super.onRefresh(context);
     await onGetRepository();
   }
 

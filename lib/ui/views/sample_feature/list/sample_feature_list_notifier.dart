@@ -11,9 +11,10 @@ class SampleFeatureListNotifier extends PaginationNotifier<SampleFeature> {
 
   SampleFeatureListNotifier(this.repository);
 
-  SampleFeatureListNotifier onInit() {
+  @override
+  void onInit([Map<String, dynamic>? args]) {
     loadData(() => onGetUsers());
-    return this;
+    super.onInit(args);
   }
 
   @override
