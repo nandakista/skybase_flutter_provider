@@ -12,11 +12,7 @@ final sampleFeatureDetailPage = [
     builder: (context, state) {
       final extra = state.extra as Map<String, dynamic>;
       return ChangeNotifierProvider<SampleFeatureDetailNotifier>(
-        create: (_) => sl<SampleFeatureDetailNotifier>()
-          ..onInit(
-            id: extra['id'] as int,
-            username: extra['username'] as String,
-          ),
+        create: (_) => sl<SampleFeatureDetailNotifier>()..onInit(extra),
         child: SampleFeatureDetailView(
           usernameArgs: extra['username'] as String,
         ),
