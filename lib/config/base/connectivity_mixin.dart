@@ -26,7 +26,6 @@ mixin ConnectivityMixin {
           } else {
             log('Connectivity: Connect to $connection');
             onRefresh();
-            // if (isError && !isLoading) refreshPage();
           }
         },
       );

@@ -9,7 +9,7 @@ class ProfileRepositoryNotifier extends BaseNotifier<Repo> {
   ProfileRepositoryNotifier(this.repository);
 
   @override
-  void onInit([Map<String, dynamic>? args]) {
+  void onInit([dynamic args]) {
     loadData(() => onGetRepository());
     super.onInit(args);
   }
