@@ -10,7 +10,7 @@ import 'profile_view.dart';
 
 class ProfileBinding extends Bindings {
   @override
-  List<SingleChildWidget> dependencies(BuildContext context, Map<String, dynamic> args) {
+  List<SingleChildWidget> dependencies(BuildContext context, dynamic args) {
     return [
       ChangeNotifierProvider(
         create: (_) => sl<ProfileNotifier>()..onInit(),
@@ -22,7 +22,7 @@ class ProfileBinding extends Bindings {
   }
 
   @override
-  Widget page(BuildContext context, Map<String, dynamic> args) {
+  Widget page(BuildContext context, dynamic args) {
     return const ProfileView();
   }
 }

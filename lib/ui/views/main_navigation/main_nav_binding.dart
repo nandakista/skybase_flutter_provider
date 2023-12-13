@@ -8,10 +8,7 @@ import 'main_nav_view.dart';
 
 class MainNavBinding extends Bindings {
   @override
-  List<SingleChildWidget> dependencies(
-    BuildContext context,
-    Map<String, dynamic> args,
-  ) {
+  List<SingleChildWidget> dependencies(BuildContext context, dynamic args) {
     return [
       ...SampleFeatureListBinding().dependencies(context, args),
       ...ProfileBinding().dependencies(context, args),
@@ -19,7 +16,7 @@ class MainNavBinding extends Bindings {
   }
 
   @override
-  Widget page(BuildContext context, Map<String, dynamic> args) {
+  Widget page(BuildContext context, dynamic args) {
     return const MainNavView();
   }
 }

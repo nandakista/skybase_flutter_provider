@@ -9,10 +9,7 @@ import 'sample_feature_detail_view.dart';
 
 class SampleFeatureBinding extends Bindings {
   @override
-  List<SingleChildWidget> dependencies(
-    BuildContext context,
-    Map<String, dynamic> args,
-  ) {
+  List<SingleChildWidget> dependencies(BuildContext context, dynamic args) {
     return [
       ChangeNotifierProvider(
         create: (_) => sl<SampleFeatureDetailNotifier>()..onInit(args),
@@ -21,7 +18,7 @@ class SampleFeatureBinding extends Bindings {
   }
 
   @override
-  Widget page(BuildContext context, Map<String, dynamic> args) {
+  Widget page(BuildContext context, dynamic args) {
     return SampleFeatureDetailView(usernameArgs: args['username'] as String);
   }
 }

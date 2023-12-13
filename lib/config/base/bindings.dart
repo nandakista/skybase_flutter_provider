@@ -6,9 +6,10 @@ import 'package:provider/single_child_widget.dart';
 abstract class Bindings {
   Widget Function(BuildContext context, GoRouterState state)? builder() {
     return (context, state) {
-      Map<String, dynamic> args = {};
-      if (state.extra != null) args = state.extra as Map<String, dynamic>;
+      dynamic args;
+      if (state.extra != null) args = state.extra;
 
+      if (dependencies(context, args).isEmpty) return page(context, args);
       return MultiProvider(
         providers: dependencies(context, args),
         child: page(context, args),
@@ -16,13 +17,7 @@ abstract class Bindings {
     };
   }
 
-  List<SingleChildWidget> dependencies(
-    BuildContext context,
-    Map<String, dynamic> args,
-  );
+  List<SingleChildWidget> dependencies(BuildContext context, dynamic args);
 
-  Widget page(
-    BuildContext context,
-    Map<String, dynamic> args,
-  );
+  Widget page(BuildContext context, dynamic args);
 }

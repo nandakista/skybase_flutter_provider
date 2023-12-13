@@ -9,10 +9,7 @@ import 'sample_feature_list_view.dart';
 
 class SampleFeatureListBinding extends Bindings {
   @override
-  List<SingleChildWidget> dependencies(
-    BuildContext context,
-    Map<String, dynamic> args,
-  ) {
+  List<SingleChildWidget> dependencies(BuildContext context, dynamic args) {
     return [
       ChangeNotifierProvider(
         create: (_) => sl<SampleFeatureListNotifier>()..onInit(),
@@ -21,7 +18,7 @@ class SampleFeatureListBinding extends Bindings {
   }
 
   @override
-  Widget page(BuildContext context, Map<String, dynamic> args) {
+  Widget page(BuildContext context, dynamic args) {
     return const SampleFeatureListView();
   }
 }
