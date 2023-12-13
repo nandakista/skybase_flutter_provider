@@ -11,10 +11,9 @@ class ProfileNotifier extends BaseNotifier<User> {
   ProfileNotifier(this.repository);
 
   @override
-  ProfileNotifier onInit([Map<String, dynamic>? args]) {
-    super.onInit(args);
+  void onInit([dynamic args]) {
     loadData(() => onGetProfile());
-    return this;
+    super.onInit(args);
   }
 
   @override

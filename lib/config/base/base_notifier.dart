@@ -47,7 +47,7 @@ abstract class BaseNotifier<T> extends ChangeNotifier with ConnectivityMixin {
   bool get isSuccess => !isEmpty && !isError && !isLoading && state.isSuccess;
 
   @mustCallSuper
-  void onInit([Map<String, dynamic>? args]) {
+  void onInit([dynamic args]) {
     listenConnectivity(() {
       if (isError && !isLoading) onRefresh();
     });
@@ -99,8 +99,12 @@ abstract class BaseNotifier<T> extends ChangeNotifier with ConnectivityMixin {
   @override
   @mustCallSuper
   void dispose() {
+    onClose();
     cancelConnectivity();
     cancelToken.cancel();
     super.dispose();
   }
+
+  @mustCallSuper
+  void onClose() {}
 }

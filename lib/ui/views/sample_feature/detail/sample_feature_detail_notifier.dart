@@ -13,7 +13,7 @@ class SampleFeatureDetailNotifier extends BaseNotifier<SampleFeature> {
   late String usernameArgs;
 
   @override
-  void onInit([Map<String, dynamic>? args]) {
+  void onInit([dynamic args]) {
     idArgs = args?['id'];
     usernameArgs = args?['username'];
     loadData(() => onGetDetailUser());

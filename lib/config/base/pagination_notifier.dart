@@ -18,7 +18,7 @@ abstract class PaginationNotifier<T> extends ChangeNotifier with ConnectivityMix
   final pagingController = PagingController<int, T>(firstPageKey: 0);
 
   @mustCallSuper
-  void onInit([Map<String, dynamic>? args]) {
+  void onInit([dynamic args]) {
     listenConnectivity(() {
       if (pagingController.value.status == PagingStatus.firstPageError) {
         onRefresh();
