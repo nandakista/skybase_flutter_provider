@@ -1,16 +1,12 @@
-import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
-import 'package:skybase/service_locator.dart';
-import 'package:skybase/ui/views/settings/setting_notifier.dart';
+import 'package:skybase/config/base/route_page.dart';
 import 'package:skybase/ui/views/settings/setting_view.dart';
 
+import 'setting_binding.dart';
+
 final settingRoute = [
-  GoRoute(
-    path: SettingView.route,
+  RoutePage(
     name: SettingView.route,
-    builder: (context, state) => ChangeNotifierProvider(
-      create: (_) => sl<SettingNotifier>(),
-      child: const SettingView(),
-    ),
+    page: (args) => const SettingView(),
+    binding: SettingBinding(),
   ),
 ];

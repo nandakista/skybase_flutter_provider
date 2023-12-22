@@ -32,7 +32,7 @@ class BottomSheetUtilsView extends StatelessWidget {
               onPressed: () {
                 BottomSheetHelper.basic(
                   context: context,
-                  child: _imageSource(context),
+                  builder: (btmContext) => _imageSource(btmContext),
                 );
               },
             ),
@@ -42,7 +42,7 @@ class BottomSheetUtilsView extends StatelessWidget {
               onPressed: () {
                 BottomSheetHelper.rounded(
                   context: context,
-                  child: _imageSource(context),
+                  builder: (btmContext) => _imageSource(btmContext),
                 );
               },
             ),
@@ -52,7 +52,7 @@ class BottomSheetUtilsView extends StatelessWidget {
               onPressed: () {
                 BottomSheetHelper.bar(
                   context: context,
-                  child: _imageSource(context),
+                  builder: (btmContext) => _imageSource(btmContext),
                 );
               },
             ),
@@ -62,7 +62,7 @@ class BottomSheetUtilsView extends StatelessWidget {
               onPressed: () {
                 BottomSheetHelper.cupertino(
                   context: context,
-                  child: _imageSource(context),
+                  builder: (btmContext) => _imageSource(btmContext),
                 );
               },
             ),
@@ -72,7 +72,7 @@ class BottomSheetUtilsView extends StatelessWidget {
               onPressed: () {
                 BottomSheetHelper.material(
                   context: context,
-                  child: _imageSource(context),
+                  builder: (btmContext) => _imageSource(btmContext),
                 );
               },
             ),

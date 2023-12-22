@@ -1,4 +1,4 @@
-import 'package:go_router/go_router.dart';
+import 'package:skybase/config/base/route_page.dart';
 import 'package:skybase/ui/views/utils/component/bottom_sheet_utils_view.dart';
 import 'package:skybase/ui/views/utils/component/dialog_utils_view.dart';
 import 'package:skybase/ui/views/utils/component/list_utils_view.dart';
@@ -10,45 +10,37 @@ import 'package:skybase/ui/views/utils/component/theme_component_utils_view.dart
 import 'utils_view.dart';
 
 final utilsRoute = [
-  GoRoute(
-    path: UtilsView.route,
+  RoutePage(
     name: UtilsView.route,
-    builder: (context, state) => const UtilsView(),
+    page: (args) => const UtilsView(),
     routes: [
-      GoRoute(
-        path: BottomSheetUtilsView.route,
+      RoutePage(
         name: BottomSheetUtilsView.route,
-        builder: (context, state) => const BottomSheetUtilsView(),
+        page: (args) => const BottomSheetUtilsView(),
       ),
-      GoRoute(
-        path: DialogUtilsView.route,
+      RoutePage(
         name: DialogUtilsView.route,
-        builder: (context, state) => const DialogUtilsView(),
+        page: (args) => const DialogUtilsView(),
       ),
-      GoRoute(
-        path: ListUtilsView.route,
+      RoutePage(
         name: ListUtilsView.route,
-        builder: (context, state) => const ListUtilsView(),
+        page: (args) => const ListUtilsView(),
       ),
-      GoRoute(
-        path: MediaUtilsView.route,
+      RoutePage(
         name: MediaUtilsView.route,
-        builder: (context, state) => const MediaUtilsView(),
+        page: (args) => const MediaUtilsView(),
       ),
-      GoRoute(
-        path: OtherUtilsView.route,
+      RoutePage(
         name: OtherUtilsView.route,
-        builder: (context, state) => const OtherUtilsView(),
+        page: (args) => const OtherUtilsView(),
       ),
-      GoRoute(
-        path: SnackBarUtilsView.route,
+      RoutePage(
         name: SnackBarUtilsView.route,
-        builder: (context, state) => const SnackBarUtilsView(),
+        page: (args) => const SnackBarUtilsView(),
       ),
-      GoRoute(
-        path: ThemeComponentUtilsView.route,
+      RoutePage(
         name: ThemeComponentUtilsView.route,
-        builder: (context, state) => const ThemeComponentUtilsView(),
+        page: (args) => const ThemeComponentUtilsView(),
       ),
     ],
   ),

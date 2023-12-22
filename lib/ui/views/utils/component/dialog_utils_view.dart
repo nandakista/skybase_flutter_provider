@@ -29,7 +29,7 @@ class DialogUtilsView extends StatelessWidget {
             ),
             const SizedBox(height: 12),
             SkyButton(
-              text: 'txt_warning',
+              text: 'txt_warning'.tr(),
               icon: Icons.warning_amber,
               outlineMode: true,
               color: Colors.orange,
