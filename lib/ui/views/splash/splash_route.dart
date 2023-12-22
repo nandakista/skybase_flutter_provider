@@ -1,10 +1,9 @@
-import 'package:go_router/go_router.dart';
+import 'package:skybase/config/base/route_page.dart';
 import 'package:skybase/ui/views/splash/splash_view.dart';
 
 final splashRoute = [
-  GoRoute(
-    path: SplashView.route,
+  RoutePage(
     name: SplashView.route,
-    builder: (context, state) => const SplashView(),
+    page: (args) => const SplashView(),
   ),
 ];

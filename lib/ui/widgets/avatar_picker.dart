@@ -73,11 +73,12 @@ class AvatarPicker extends StatelessWidget {
                         ),
                       ],
                     ),
-                    child: editIcon ?? const Icon(
-                      Icons.mode_edit,
-                      size: 15.9,
-                      color: Colors.black,
-                    ),
+                    child: editIcon ??
+                        const Icon(
+                          Icons.mode_edit,
+                          size: 15.9,
+                          color: Colors.black,
+                        ),
                   ),
             ),
           ),
@@ -118,7 +119,7 @@ class AvatarPicker extends StatelessWidget {
   void _onPickAvatar(BuildContext context) async {
     BottomSheetHelper.bar(
       context: context,
-      child: AttachmentsSourceBottomSheet(
+      builder: (_) => AttachmentsSourceBottomSheet(
         pageContext: context,
         allowMultiple: false,
         enabledFileSource: true,

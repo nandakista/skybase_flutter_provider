@@ -1,11 +1,11 @@
-import 'package:go_router/go_router.dart';
+import 'package:skybase/config/base/route_page.dart';
 import 'package:skybase/ui/views/profile/profile_binding.dart';
 import 'package:skybase/ui/views/profile/profile_view.dart';
 
 final profileRoute = [
-  GoRoute(
-    path: ProfileView.route,
+  RoutePage(
     name: ProfileView.route,
-    builder: ProfileBinding().builder(),
+    page: (args) => const ProfileView(),
+    binding: ProfileBinding(),
   ),
 ];

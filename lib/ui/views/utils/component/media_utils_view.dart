@@ -98,7 +98,7 @@ class _MediaUtilsViewState extends State<MediaUtilsView> {
         onPressed: () {
           BottomSheetHelper.material(
             context: context,
-            child: AttachmentsSourceBottomSheet(
+            builder: (_) => AttachmentsSourceBottomSheet(
               pageContext: context,
               enabledFileSource: false,
               onAttachmentsSelected: (file) {

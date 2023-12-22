@@ -4,7 +4,7 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 class BottomSheetHelper {
   static Future<T?> basic<T>({
     required BuildContext context,
-    required Widget child,
+    required Widget Function(BuildContext) builder,
     bool isDismissible = true,
     bool isScrollControlled = true,
     Color? backgroundColor = Colors.transparent,
@@ -22,10 +22,10 @@ class BottomSheetHelper {
         color: Theme.of(context).scaffoldBackgroundColor,
         child: ConstrainedBox(
           constraints:
-              BoxConstraints(maxHeight: MediaQuery.sizeOf(context).height - 50),
+          BoxConstraints(maxHeight: MediaQuery.sizeOf(context).height - 50),
           child: Padding(
             padding: const EdgeInsets.fromLTRB(24, 12, 24, 24),
-            child: child,
+            child: builder(btmContext),
           ),
         ),
       ),
@@ -34,7 +34,7 @@ class BottomSheetHelper {
 
   static Future<T?> rounded<T>({
     required BuildContext context,
-    required Widget child,
+    required Widget Function(BuildContext) builder,
     bool isDismissible = true,
     bool isScrollControlled = true,
     Color? backgroundColor = Colors.transparent,
@@ -53,7 +53,7 @@ class BottomSheetHelper {
       builder: (btmContext) {
         return ConstrainedBox(
           constraints:
-              BoxConstraints(maxHeight: MediaQuery.sizeOf(context).height - 50),
+          BoxConstraints(maxHeight: MediaQuery.sizeOf(context).height - 50),
           child: Container(
             decoration: BoxDecoration(
               color: Theme.of(context).scaffoldBackgroundColor,
@@ -64,7 +64,7 @@ class BottomSheetHelper {
             ),
             child: Padding(
               padding: const EdgeInsets.fromLTRB(24, 12, 24, 24),
-              child: child,
+              child: builder(btmContext),
             ),
           ),
         );
@@ -74,7 +74,7 @@ class BottomSheetHelper {
 
   static Future<T?> bar<T>({
     required BuildContext context,
-    required Widget child,
+    required Widget Function(BuildContext) builder,
     bool isDismissible = true,
     bool isScrollControlled = true,
     Color? backgroundColor,
@@ -89,14 +89,14 @@ class BottomSheetHelper {
       barrierColor: barrierColor ?? Colors.black54,
       builder: (btmContext) => Padding(
         padding: const EdgeInsets.fromLTRB(24, 12, 24, 24),
-        child: child,
+        child: builder(btmContext),
       ),
     );
   }
 
   static Future<T?> cupertino<T>({
     required BuildContext context,
-    required Widget child,
+    required Widget Function(BuildContext) builder,
     bool isDismissible = true,
     bool isScrollControlled = true,
     bool enableDrag = true,
@@ -125,7 +125,7 @@ class BottomSheetHelper {
                 child: Container(
                   margin: const EdgeInsets.only(top: 12),
                   height: 6,
-                  width: 80,
+                  width: 60,
                   decoration: BoxDecoration(
                     color: Colors.grey,
                     borderRadius: BorderRadius.circular(20),
@@ -134,7 +134,7 @@ class BottomSheetHelper {
               ),
               Padding(
                 padding: const EdgeInsets.all(24),
-                child: child,
+                child: builder(btmContext),
               ),
             ],
           ),
@@ -145,7 +145,7 @@ class BottomSheetHelper {
 
   static Future<T?> material<T>({
     required BuildContext context,
-    required Widget child,
+    required Widget Function(BuildContext) builder,
     bool isDismissible = true,
     bool isScrollControlled = true,
     bool enableDrag = true,
@@ -166,7 +166,7 @@ class BottomSheetHelper {
         canPop: enableBack,
         child: Padding(
           padding: const EdgeInsets.fromLTRB(24, 12, 24, 24),
-          child: child,
+          child: builder(btmContext),
         ),
       ),
     );
