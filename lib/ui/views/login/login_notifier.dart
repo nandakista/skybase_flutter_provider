@@ -1,16 +1,14 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:skybase/config/auth_manager/auth_manager.dart';
+import 'package:skybase/config/base/base_notifier.dart';
 import 'package:skybase/config/base/main_navigation.dart';
 import 'package:skybase/core/helper/dialog_helper.dart';
 import 'package:skybase/core/helper/validator_helper.dart';
 import 'package:skybase/data/repositories/auth/auth_repository.dart';
 import 'package:skybase/ui/views/main_navigation/main_nav_view.dart';
 
-class LoginNotifier extends ChangeNotifier {
+class LoginNotifier extends BaseNotifier {
   final AuthRepository repository;
-  CancelToken cancelToken = CancelToken();
-
   LoginNotifier(this.repository);
 
   final formKey = GlobalKey<FormState>();
@@ -68,11 +66,10 @@ class LoginNotifier extends ChangeNotifier {
   }
 
   @override
-  void dispose() {
-    cancelToken.cancel();
+  void onClose() {
     phoneController.dispose();
     emailController.dispose();
     passwordController.dispose();
-    super.dispose();
+    super.onClose();
   }
 }

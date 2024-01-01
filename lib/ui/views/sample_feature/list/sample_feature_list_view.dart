@@ -1,6 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:skybase/core/database/storage/storage_manager.dart';
 import 'package:skybase/config/themes/app_colors.dart';
 import 'package:skybase/config/themes/app_style.dart';
@@ -10,52 +9,51 @@ import 'package:skybase/data/sources/local/cached_key.dart';
 import 'package:skybase/config/base/main_navigation.dart';
 import 'package:skybase/ui/views/sample_feature/detail/sample_feature_detail_view.dart';
 import 'package:skybase/ui/views/sample_feature/list/sample_feature_list_notifier.dart';
+import 'package:skybase/config/base/notifier_view.dart';
 import 'package:skybase/ui/widgets/shimmer/shimmer_list.dart';
 import 'package:skybase/ui/widgets/sky_appbar.dart';
 import 'package:skybase/ui/widgets/sky_image.dart';
 import 'package:skybase/ui/widgets/sky_view.dart';
 
-class SampleFeatureListView extends StatelessWidget {
+class SampleFeatureListView extends NotifierView<SampleFeatureListNotifier> {
   static const String route = '/user-list';
 
   const SampleFeatureListView({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, SampleFeatureListNotifier notifier) {
     return Scaffold(
       appBar: SkyAppBar.secondary(title: 'txt_list_users'.tr()),
-      body: Consumer<SampleFeatureListNotifier>(
-        builder: (context, notifier, child) {
-          return SkyView.pagination<SampleFeature>(
-            pagingController: notifier.pagingController,
-            loadingView: const ShimmerList(),
-            onRefresh: notifier.onRefresh,
-            itemBuilder: (BuildContext context, item, int index) {
-              return ListTile(
-                onTap: () {
-                  Navigation.instance.push(
-                    context,
-                    SampleFeatureDetailView.route,
-                    arguments: {
-                      'id': item.id,
-                      'username': item.username,
-                    },
-                  );
-                },
-                leading: SkyImage(
-                  shapeImage: ShapeImage.circle,
-                  size: 30,
-                  src: '${item.avatarUrl}&s=200',
-                ),
-                title: Text(item.username.toString()),
-                subtitle: Text(
-                  item.gitUrl.toString(),
-                  style: AppStyle.body2,
-                ),
-              );
-            },
-          );
-        }
+      body: Consumable(
+        () => SkyView.pagination<SampleFeature>(
+          pagingController: notifier.pagingController,
+          loadingView: const ShimmerList(),
+          onRefresh: notifier.onRefresh,
+          itemBuilder: (BuildContext context, item, int index) {
+            return ListTile(
+              onTap: () {
+                Navigation.instance.push(
+                  context,
+                  SampleFeatureDetailView.route,
+                  arguments: {
+                    'id': item.id,
+                    'username': item.username,
+                  },
+                );
+              },
+              leading: SkyImage(
+                shapeImage: ShapeImage.circle,
+                size: 30,
+                src: '${item.avatarUrl}&s=200',
+              ),
+              title: Text(item.username.toString()),
+              subtitle: Text(
+                item.gitUrl.toString(),
+                style: AppStyle.body2,
+              ),
+            );
+          },
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: AppColors.primary,

@@ -14,8 +14,8 @@ class SampleFeatureDetailNotifier extends BaseNotifier<SampleFeature> {
 
   @override
   void onInit([dynamic args]) {
-    idArgs = args?['id'];
-    usernameArgs = args?['username'];
+    idArgs = args['id'];
+    usernameArgs = args['username'];
     loadData(() => onGetDetailUser());
     super.onInit(args);
   }

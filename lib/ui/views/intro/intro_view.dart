@@ -4,7 +4,7 @@ import 'package:skybase/config/themes/app_colors.dart';
 import 'package:skybase/ui/views/intro/intro_data.dart';
 import 'package:skybase/ui/views/intro/intro_notifier.dart';
 import 'package:skybase/ui/views/intro/widgets/intro_indicator.dart';
-import 'package:skybase/ui/widgets/base/notifier_view.dart';
+import 'package:skybase/config/base/notifier_view.dart';
 
 import 'widgets/intro_content.dart';
 
@@ -14,7 +14,7 @@ class IntroView extends NotifierView<IntroNotifier> {
   const IntroView({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, IntroNotifier notifier) {
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -52,7 +52,7 @@ class IntroView extends NotifierView<IntroNotifier> {
             Expanded(
               child: PageView.builder(
                 itemCount: introItem.length,
-                controller: notifier(context).pageController,
+                controller: notifier.pageController,
                 itemBuilder: (context, index) {
                   final item = introItem[index];
                   return IntroContent(
@@ -62,7 +62,7 @@ class IntroView extends NotifierView<IntroNotifier> {
                   );
                 },
                 onPageChanged: (index) {
-                  notifier(context).onChangePage(index);
+                  notifier.onChangePage(index);
                 },
               ),
             ),
