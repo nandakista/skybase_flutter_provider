@@ -14,7 +14,6 @@ class LoginNotifier extends BaseNotifier {
   final formKey = GlobalKey<FormState>();
   final phoneController = TextEditingController();
   final passwordController = TextEditingController();
-  final emailController = TextEditingController();
 
   bool isHiddenPassword = true;
 
@@ -29,7 +28,6 @@ class LoginNotifier extends BaseNotifier {
         LoadingDialog.show(context);
         await repository.login(
           phoneNumber: phoneController.text,
-          email: emailController.text,
           password: passwordController.text,
         );
         if (context.mounted) {
@@ -68,7 +66,6 @@ class LoginNotifier extends BaseNotifier {
   @override
   void onClose() {
     phoneController.dispose();
-    emailController.dispose();
     passwordController.dispose();
     super.onClose();
   }

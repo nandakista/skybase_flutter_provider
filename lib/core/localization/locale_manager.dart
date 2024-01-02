@@ -1,3 +1,8 @@
+/* Created by
+   Varcant
+   nanda.kista@gmail.com
+*/
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:skybase/config/themes/app_colors.dart';
@@ -8,10 +13,6 @@ import 'package:skybase/core/database/storage/storage_manager.dart';
 import 'package:skybase/service_locator.dart';
 import 'package:skybase/ui/widgets/sky_dialog.dart';
 
-/* Created by
-   Varcant
-   nanda.kista@gmail.com
-*/
 class LocaleManager {
   static LocaleManager get instance => sl<LocaleManager>();
 

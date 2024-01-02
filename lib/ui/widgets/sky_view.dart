@@ -1,3 +1,8 @@
+/* Created by
+   Varcant
+   nanda.kista@gmail.com
+*/
+
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:skybase/ui/widgets/base/base_view.dart';

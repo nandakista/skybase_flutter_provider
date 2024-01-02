@@ -1,3 +1,8 @@
+/* Created by
+   Varcant
+   nanda.kista@gmail.com
+*/
+
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -29,12 +34,7 @@ import 'data/repositories/sample_feature/sample_feature_repository.dart';
 import 'data/sources/server/sample_feature/sample_feature_sources_impl.dart';
 import 'ui/views/sample_feature/detail/sample_feature_detail_notifier.dart';
 
-/* Created by
-   Varcant
-   nanda.kista@gmail.com
-*/
-
-final sl = GetIt.instance;
+final GetIt sl = GetIt.instance;
 
 class ServiceLocator {
   static Future<void> init() async {

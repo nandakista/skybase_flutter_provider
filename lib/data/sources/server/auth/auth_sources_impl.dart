@@ -17,7 +17,6 @@ class AuthSourcesImpl extends AuthSources {
   @override
   Future<User> login({
     required String phoneNumber,
-    required String email,
     required String password,
   }) async {
     try {
@@ -26,7 +25,6 @@ class AuthSourcesImpl extends AuthSources {
         body: {
           'phone': phoneNumber,
           'password': password,
-          'email': email,
         },
       );
       return User.fromJson(ApiResponse.fromJson(response.data).data);

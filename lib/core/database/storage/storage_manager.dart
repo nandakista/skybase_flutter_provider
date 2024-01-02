@@ -1,12 +1,12 @@
-import 'package:flutter/cupertino.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:skybase/core/database/storage/storage_key.dart';
-import 'package:skybase/service_locator.dart';
-
 /* Created by
    Varcant
    nanda.kista@gmail.com
 */
+
+import 'package:flutter/cupertino.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:skybase/core/database/storage/storage_key.dart';
+import 'package:skybase/service_locator.dart';
 
 class StorageManager {
   SharedPreferences sharedPreferences = sl<SharedPreferences>();

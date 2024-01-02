@@ -1,9 +1,10 @@
-import 'package:flutter/material.dart';
-
 /* Created by
    Varcant
    nanda.kista@gmail.com
 */
+
+import 'package:flutter/material.dart';
+
 class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
   const BaseAppBar({
     super.key,

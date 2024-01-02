@@ -1,12 +1,13 @@
+/* Created by
+   Varcant
+   nanda.kista@gmail.com
+*/
+
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 
 import 'api_token_manager.dart';
 
-/* Created by
-   Varcant
-   nanda.kista@gmail.com
-*/
 final class ApiInterceptors extends ApiTokenManager
     implements QueuedInterceptorsWrapper {
   ApiInterceptors(this._dio);

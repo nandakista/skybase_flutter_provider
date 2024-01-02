@@ -1,10 +1,11 @@
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:skybase/service_locator.dart';
-
 /* Created by
    Varcant
    nanda.kista@gmail.com
 */
+
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:skybase/service_locator.dart';
+
 FlutterSecureStorage secureStorage = sl<FlutterSecureStorage>();
 
 class SecureStorageManager {

@@ -10,7 +10,6 @@ abstract interface class AuthRepository {
 
   Future<User> login({
     required String phoneNumber,
-    required String email,
     required String password,
   });
 

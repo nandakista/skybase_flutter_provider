@@ -1,12 +1,13 @@
+/* Created by
+   Varcant
+   nanda.kista@gmail.com
+*/
+
 import 'package:dio/dio.dart';
 import 'package:skybase/config/environment/app_env.dart';
 import 'package:skybase/config/network/api_interceptor.dart';
 import 'package:skybase/service_locator.dart';
 
-/* Created by
-   Varcant
-   nanda.kista@gmail.com
-*/
 class DioClient {
   static String baseURL = AppEnv.config.baseUrl;
   final Dio _dio = sl<Dio>();

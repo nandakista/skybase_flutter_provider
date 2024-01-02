@@ -1,3 +1,8 @@
+/* Created by
+   Varcant
+   nanda.kista@gmail.com
+*/
+
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
@@ -10,10 +15,6 @@ import 'package:skybase/config/network/api_exception.dart';
 import 'package:skybase/config/network/api_request.dart';
 import 'package:skybase/config/network/api_response.dart';
 
-/* Created by
-   Varcant
-   nanda.kista@gmail.com
-*/
 enum TokenType {
   /// When your app no need token authentication.
   NONE,

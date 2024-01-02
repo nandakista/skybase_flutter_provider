@@ -1,11 +1,12 @@
-import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/material.dart';
-import 'package:skybase/ui/widgets/sky_button.dart';
-
 /* Created by
    Varcant
    nanda.kista@gmail.com
 */
+
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
+import 'package:skybase/ui/widgets/sky_button.dart';
+
 class ErrorView extends StatelessWidget {
   const ErrorView({
     super.key,

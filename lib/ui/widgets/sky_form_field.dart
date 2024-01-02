@@ -1,12 +1,13 @@
+/* Created by
+   Varcant
+   nanda.kista@gmail.com
+*/
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:skybase/config/themes/app_colors.dart';
 import 'package:skybase/config/themes/app_style.dart';
 
-/* Created by
-   Varcant
-   nanda.kista@gmail.com
-*/
 class SkyFormField extends StatelessWidget {
   final String? label, hint, endText;
   final TextEditingController? controller;

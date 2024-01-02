@@ -1,14 +1,12 @@
-import 'package:flutter/material.dart';
-import 'package:skybase/config/themes/app_colors.dart';
-import 'package:skybase/config/themes/app_style.dart';
-
 /* Created by
    Varcant
    nanda.kista@gmail.com
 */
 
-///  Default button on this project with primary color.
-///  Change it as needed.
+import 'package:flutter/material.dart';
+import 'package:skybase/config/themes/app_colors.dart';
+import 'package:skybase/config/themes/app_style.dart';
+
 class SkyButton extends StatelessWidget {
   /// Background color of button. Default value is primary color.
   final Color color;

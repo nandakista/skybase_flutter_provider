@@ -15,12 +15,10 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<User> login({
     required String phoneNumber,
-    required String email,
     required String password,
   }) async {
     return await apiService.login(
       phoneNumber: phoneNumber,
-      email: email,
       password: password,
     );
   }

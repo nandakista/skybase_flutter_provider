@@ -1,11 +1,11 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:skybase/config/themes/app_colors.dart';
-
 /* Created by
    Varcant
    nanda.kista@gmail.com
 */
+
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:skybase/config/themes/app_colors.dart';
 
 /// Wrap your Scaffold to this widget for set Status Bar color in specific pages.
 /// the default factory is light

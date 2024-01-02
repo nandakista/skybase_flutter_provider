@@ -1,3 +1,8 @@
+/* Created by
+   Varcant
+   nanda.kista@gmail.com
+*/
+
 import 'dart:io';
 
 import 'package:device_info_plus/device_info_plus.dart';
@@ -11,10 +16,6 @@ import 'package:skybase/core/helper/file_helper.dart';
 import 'package:skybase/core/helper/media_helper.dart';
 import 'package:skybase/core/helper/permission_helper.dart';
 
-/* Created by
-   Varcant
-   nanda.kista@gmail.com
-*/
 class AttachmentsSourceBottomSheet extends StatelessWidget {
   final BuildContext pageContext;
   final double? maxHeight;

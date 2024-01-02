@@ -1,3 +1,8 @@
+/* Created by
+   Varcant
+   nanda.kista@gmail.com
+*/
+
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
@@ -7,10 +12,6 @@ import 'package:skybase/ui/widgets/platform_loading_indicator.dart';
 import 'empty_view.dart';
 import 'error_view.dart';
 
-/* Created by
-   Varcant
-   nanda.kista@gmail.com
-*/
 class BaseView extends StatelessWidget {
   /// Can override setting Visibility emptyView even if [emptyEnabled] is true
   final bool visibleOnEmpty;

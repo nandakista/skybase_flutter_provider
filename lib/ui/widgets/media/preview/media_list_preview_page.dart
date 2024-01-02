@@ -1,13 +1,14 @@
+/* Created by
+   Varcant
+   nanda.kista@gmail.com
+*/
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:skybase/ui/widgets/media/determine_media_widget.dart';
 import 'package:skybase/ui/widgets/sky_appbar.dart';
 import 'package:skybase/ui/widgets/sky_image.dart';
 
-/* Created by
-   Varcant
-   nanda.kista@gmail.com
-*/
 class MediaListPreviewPage extends StatelessWidget {
   const MediaListPreviewPage({super.key, required this.mediaUrls});
   final List<String> mediaUrls;

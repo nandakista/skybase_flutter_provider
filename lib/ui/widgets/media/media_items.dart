@@ -1,3 +1,8 @@
+/* Created by
+   Varcant
+   nanda.kista@gmail.com
+*/
+
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -6,10 +11,6 @@ import 'package:skybase/ui/widgets/media/determine_media_widget.dart';
 import 'package:skybase/ui/widgets/media/preview/media_list_preview_page.dart';
 import 'package:skybase/ui/widgets/sky_image.dart';
 
-/* Created by
-   Varcant
-   nanda.kista@gmail.com
-*/
 class MediaItems extends StatelessWidget {
   final VoidCallback? onTapMore;
   final void Function(int)? onTap;

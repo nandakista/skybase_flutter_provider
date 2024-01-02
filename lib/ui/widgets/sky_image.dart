@@ -1,3 +1,8 @@
+/* Created by
+   Varcant
+   nanda.kista@gmail.com
+*/
+
 import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
@@ -10,10 +15,6 @@ import 'package:skybase/ui/widgets/platform_loading_indicator.dart';
 
 enum ShapeImage { oval, react, circle }
 
-/* Created by
-   Varcant
-   nanda.kista@gmail.com
-*/
 class SkyImage extends StatelessWidget {
   final String? src;
   final double? width;

@@ -10,20 +10,24 @@ extension ListNullExtension<T> on List<T>? {
       }
     }
   }
+
+  Iterable<E>? mapOrNull<E>(E Function(T e) toElement) {
+    return (this ?? []).isEmpty ? null : this!.map(toElement);
+  }
 }
 
 extension Iterables<E> on Iterable<E> {
   Map<K, List<E>> groupBy<K>(K Function(E) keyFunction) => fold(
       <K, List<E>>{},
-          (Map<K, List<E>> map, E element) =>
-      map..putIfAbsent(keyFunction(element), () => <E>[]).add(element));
+      (Map<K, List<E>> map, E element) =>
+          map..putIfAbsent(keyFunction(element), () => <E>[]).add(element));
 }
 
 extension Unique<E, Id> on List<E> {
-  List<E> unique([Id Function(E element)? id, bool inplace = true]) {
+  List<E> unique({Id Function(E element)? where, bool modifyOriginal = false}) {
     final ids = <dynamic>{};
-    var list = inplace ? this : List<E>.from(this);
-    list.retainWhere((x) => ids.add(id != null ? id(x) : x as Id));
+    var list = modifyOriginal ? this : List<E>.from(this);
+    list.retainWhere((x) => ids.add(where != null ? where(x) : x as Id));
     return list;
   }
 }
