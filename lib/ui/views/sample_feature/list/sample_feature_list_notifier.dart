@@ -33,7 +33,7 @@ class SampleFeatureListNotifier extends PaginationNotifier<SampleFeature> {
       loadNextData(data: response);
     } catch (e) {
       debugPrint('Error : $e');
-      showError(e.toString());
+      loadError(e.toString());
     }
   }
 
