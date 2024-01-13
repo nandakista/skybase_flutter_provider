@@ -42,7 +42,7 @@ abstract class PaginationNotifier<T> extends ChangeNotifier with ConnectivityMix
     pagingController.addPageRequestListener((page) => onLoad());
   }
 
-  void showError(String message) {
+  void loadError(String message) {
     pagingController.error = message;
   }
 

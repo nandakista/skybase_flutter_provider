@@ -27,9 +27,9 @@ class ProfileRepositoryNotifier extends BaseNotifier<Repo> {
         cancelToken: cancelToken,
         username: 'nandakista',
       );
-      finishLoadData(list: response);
+      loadFinish(list: response);
     } catch (e) {
-      showError(e.toString());
+      loadError(e.toString());
     }
   }
 

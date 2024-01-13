@@ -69,7 +69,7 @@ abstract class BaseNotifier<T> extends ChangeNotifier with ConnectivityMixin {
     notifyListeners();
   }
 
-  void showError(String message) {
+  void loadError(String message) {
     errorMessage = message;
     state = RequestState.error;
     notifyListeners();
@@ -80,9 +80,9 @@ abstract class BaseNotifier<T> extends ChangeNotifier with ConnectivityMixin {
   }
 
   /// **NOTE:**
-  /// call this [finishLoadData] instead [saveCacheAndFinish] if the data
+  /// call this [loadFinish] instead [saveCacheAndFinish] if the data
   /// is not require to saved in local data
-  finishLoadData({
+  loadFinish({
     T? data,
     List<T> list = const [],
   }) {
