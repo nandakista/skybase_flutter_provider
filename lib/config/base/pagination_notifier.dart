@@ -4,6 +4,7 @@
 */
 
 import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:skybase/config/base/connectivity_mixin.dart';
@@ -27,7 +28,7 @@ abstract class PaginationNotifier<T> extends ChangeNotifier with ConnectivityMix
   }
 
   @mustCallSuper
-  void onRefresh() {
+  void onRefresh([BuildContext? context]) {
     page = 1;
     pagingController.refresh();
     notifyListeners();
@@ -43,7 +44,6 @@ abstract class PaginationNotifier<T> extends ChangeNotifier with ConnectivityMix
 
   void showError(String message) {
     pagingController.error = message;
-    // notifyListeners();
   }
 
   void loadNextData({required List<T> data, int? page}) {
