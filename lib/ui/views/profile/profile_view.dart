@@ -5,7 +5,7 @@ import 'package:skybase/config/themes/app_style.dart';
 import 'package:skybase/config/base/main_navigation.dart';
 import 'package:skybase/ui/views/profile/profile_notifier.dart';
 import 'package:skybase/ui/views/settings/setting_view.dart';
-import 'package:skybase/ui/widgets/sky_view.dart';
+import 'package:skybase/ui/widgets/base/state_view.dart';
 import 'package:skybase/ui/widgets/sky_image.dart';
 
 import 'component/repository/profile_repository_view.dart';
@@ -34,7 +34,7 @@ class ProfileView extends StatelessWidget {
       ),
       body: Consumer<ProfileNotifier>(
         builder: (context, notifier, child) {
-          return SkyView.page(
+          return StateView.page(
             loadingEnabled: notifier.isLoading,
             errorEnabled: notifier.isError,
             emptyEnabled: false,
