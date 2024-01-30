@@ -18,7 +18,8 @@ class ErrorView extends StatelessWidget {
     this.retryText,
     this.verticalSpacing = 24,
     this.horizontalSpacing = 24,
-    this.imageSize,
+    this.imageHeight,
+    this.imageWidth,
     this.titleStyle,
     this.subtitleStyle,
     this.retryWidget,
@@ -33,7 +34,8 @@ class ErrorView extends StatelessWidget {
   final VoidCallback? onRetry;
   final double verticalSpacing;
   final double horizontalSpacing;
-  final double? imageSize;
+  final double? imageHeight;
+  final double? imageWidth;
   final TextStyle? titleStyle;
   final TextStyle? subtitleStyle;
   final Widget? retryWidget;
@@ -53,7 +55,8 @@ class ErrorView extends StatelessWidget {
             errorImageWidget ??
                 Image.asset(
                   errorImage ?? 'assets/images/img_error.png',
-                  height: imageSize,
+                  height: imageHeight,
+                  width: imageWidth,
                 ),
             SizedBox(height: verticalSpacing * 2),
             Text(

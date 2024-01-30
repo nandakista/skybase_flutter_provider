@@ -4,7 +4,7 @@ import 'package:skybase/ui/views/sample_feature/detail/widgets/sample_feature_de
 import 'package:skybase/ui/views/sample_feature/detail/widgets/sample_feature_detail_info.dart';
 import 'package:skybase/ui/views/sample_feature/detail/widgets/sample_feature_detail_tab.dart';
 import 'package:skybase/config/base/notifier_view.dart';
-import 'package:skybase/ui/widgets/sky_view.dart';
+import 'package:skybase/ui/widgets/base/state_view.dart';
 import 'package:skybase/ui/widgets/shimmer/shimmer_detail.dart';
 import 'package:skybase/ui/widgets/sky_appbar.dart';
 
@@ -22,7 +22,7 @@ class SampleFeatureDetailView
       appBar: SkyAppBar.primary(title: usernameArgs),
       body: SafeArea(
         child: Consumable(
-          () => SkyView.page(
+          () => StateView.page(
             loadingEnabled: notifier.isLoading,
             errorEnabled: notifier.isError,
             emptyEnabled: false,

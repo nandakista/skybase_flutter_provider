@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:skybase/config/themes/app_style.dart';
 import 'package:skybase/ui/views/profile/component/repository/profile_repository_notifier.dart';
-import 'package:skybase/ui/widgets/sky_view.dart';
+import 'package:skybase/ui/widgets/base/state_view.dart';
 import 'package:skybase/ui/widgets/shimmer/shimmer_list.dart';
 import 'package:skybase/ui/widgets/sky_image.dart';
 
@@ -13,7 +13,7 @@ class ProfileRepositoryView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<ProfileRepositoryNotifier>(
       builder: (context, notifier, child) {
-        return SkyView.component(
+        return StateView.component(
           loadingEnabled: notifier.isLoading,
           errorEnabled: notifier.isError,
           emptyEnabled: notifier.isEmpty,
@@ -33,6 +33,7 @@ class ProfileRepositoryView extends StatelessWidget {
                   shapeImage: ShapeImage.circle,
                   size: 30,
                   src: '${item.owner.avatarUrl}&s=200',
+                  enablePreview: true,
                 ),
                 title: Text(item.name, style: AppStyle.body2),
                 subtitle: Column(
