@@ -33,6 +33,7 @@ class ProfileRepositoryView extends StatelessWidget {
                   shapeImage: ShapeImage.circle,
                   size: 30,
                   src: '${item.owner.avatarUrl}&s=200',
+                  enablePreview: true,
                 ),
                 title: Text(item.name, style: AppStyle.body2),
                 subtitle: Column(
