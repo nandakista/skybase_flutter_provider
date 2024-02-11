@@ -18,12 +18,12 @@ class SampleFeatureListNotifier extends PaginationNotifier<SampleFeature> {
   }
 
   @override
-  void onRefresh([BuildContext? context]) async {
-    super.onRefresh(context);
-    await deleteCached(CachedKey.SAMPLE_FEATURE_LIST);
-  }
+  bool get keepAlive => true;
 
-  void onGetUsers() async {
+  @override
+  String get cachedKey => CachedKey.SAMPLE_FEATURE_LIST;
+
+  Future<void> onGetUsers() async {
     try {
       final response = await repository.getUsers(
         cancelToken: cancelToken,

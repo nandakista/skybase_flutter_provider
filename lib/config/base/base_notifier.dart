@@ -5,24 +5,13 @@
 
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:skybase/config/base/connectivity_mixin.dart';
-import 'package:skybase/core/database/storage/storage_manager.dart';
+import 'package:skybase/config/base/request_state.dart';
+import 'package:skybase/core/mixin/cache_mixin.dart';
+import 'package:skybase/core/mixin/connectivity_mixin.dart';
 import 'package:skybase/core/extension/string_extension.dart';
 
-enum RequestState { initial, empty, loading, success, error, shimmering }
-
-extension RequestStateExt on RequestState {
-  bool get isInitial => this == RequestState.initial;
-  bool get isEmpty => this == RequestState.empty;
-  bool get isLoading => this == RequestState.loading;
-  bool get isSuccess => this == RequestState.success;
-  bool get isError => this == RequestState.error;
-  bool get isShimmering => this == RequestState.shimmering;
-}
-
-abstract class BaseNotifier<T> extends ChangeNotifier with ConnectivityMixin {
-  StorageManager storage = StorageManager.instance;
-
+abstract class BaseNotifier<T> extends ChangeNotifier
+    with ConnectivityMixin, CacheMixin {
   CancelToken cancelToken = CancelToken();
   String? errorMessage;
 
@@ -33,6 +22,12 @@ abstract class BaseNotifier<T> extends ChangeNotifier with ConnectivityMixin {
 
   T? dataObj;
   List<T> dataList = [];
+
+  Future Function()? _onLoad;
+
+  bool get keepAlive => false;
+
+  String get cachedKey => '';
 
   bool get isInitial => state.isInitial;
 
@@ -51,15 +46,17 @@ abstract class BaseNotifier<T> extends ChangeNotifier with ConnectivityMixin {
     listenConnectivity(() {
       if (isError && !isLoading) onRefresh();
     });
+    WidgetsBinding.instance.addPostFrameCallback((_) => onReady());
   }
 
-  void onRefresh([BuildContext? context]) {}
+  @mustCallSuper
+  void onReady() {}
 
-  Future<void> deleteCached(String cacheKey, {String? cacheId}) async {
-    if (cacheId != null) {
-      await storage.delete('$cacheKey/$cacheId');
-    } else {
-      await storage.delete(cacheKey.toString());
+  Future<void> onRefresh([BuildContext? context]) async {
+    if (_onLoad != null) {
+      if (cachedKey.isNotEmpty) await deleteCached(cachedKey);
+      if (!keepAlive) showLoading();
+      await _onLoad!();
     }
   }
 
@@ -75,13 +72,12 @@ abstract class BaseNotifier<T> extends ChangeNotifier with ConnectivityMixin {
     notifyListeners();
   }
 
-  void loadData(Function() onLoad) {
-    onLoad();
+  void loadData(Future Function() onLoad) async {
+    showLoading();
+    await onLoad();
+    this._onLoad = onLoad;
   }
 
-  /// **NOTE:**
-  /// call this [loadFinish] instead [saveCacheAndFinish] if the data
-  /// is not require to saved in local data
   loadFinish({
     T? data,
     List<T> list = const [],

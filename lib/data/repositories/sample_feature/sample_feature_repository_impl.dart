@@ -1,14 +1,14 @@
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
-import 'package:skybase/config/base/cache_mixin.dart';
+import 'package:skybase/config/base/base_repository.dart';
 import 'package:skybase/data/models/sample_feature/sample_feature.dart';
 import 'package:skybase/data/repositories/sample_feature/sample_feature_repository.dart';
 import 'package:skybase/data/sources/local/cached_key.dart';
 import 'package:skybase/data/sources/server/sample_feature/sample_feature_sources.dart';
 
 class SampleFeatureRepositoryImpl
-    with CacheMixin
+    extends BaseRepository
     implements SampleFeatureRepository {
   String tag = 'SampleFeatureRepository::->';
 
@@ -24,7 +24,7 @@ class SampleFeatureRepositoryImpl
   }) async {
     try {
       // Using cached
-      return await getCacheList(
+      return await loadCachedList(
         cachedKey: CachedKey.SAMPLE_FEATURE_LIST,
         page: page,
         onLoad: () async => await apiService.getUsers(
@@ -54,7 +54,7 @@ class SampleFeatureRepositoryImpl
   }) async {
     try {
       // Using cache
-      return await getCache(
+      return await loadCached(
         cachedKey: CachedKey.SAMPLE_FEATURE_DETAIL,
         cachedId: id.toString(),
         onLoad: () async => await apiService
