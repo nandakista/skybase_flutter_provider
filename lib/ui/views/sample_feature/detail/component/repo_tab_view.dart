@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:skybase/config/themes/app_colors.dart';
 import 'package:skybase/config/themes/app_style.dart';
 import 'package:skybase/data/models/repo/repo.dart';
 import 'package:skybase/data/models/sample_feature/sample_feature.dart';
