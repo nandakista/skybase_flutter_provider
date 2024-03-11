@@ -9,9 +9,9 @@ class ProfileRepositoryNotifier extends BaseNotifier<Repo> {
   ProfileRepositoryNotifier(this.repository);
 
   @override
-  void onInit([dynamic args]) {
+  void onReady() {
     loadData(() => onGetRepository());
-    super.onInit(args);
+    super.onReady();
   }
 
   @override

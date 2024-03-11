@@ -47,6 +47,8 @@ abstract class BaseNotifier<T> extends ChangeNotifier
 
   bool get isSuccess => !isEmpty && !isError && !isLoading && state.isSuccess;
 
+  /// Called immediately when route opens.
+  /// Perfect to parsing arguments from previous route.
   @mustCallSuper
   void onInit([dynamic args]) {
     requestParams = RequestParams(
@@ -64,7 +66,6 @@ abstract class BaseNotifier<T> extends ChangeNotifier
   /// Called 1 frame after onInit(). It is the perfect place to enter
   /// navigation events, like snackbar, dialogs, or a new route, or
   /// async request.
-  @mustCallSuper
   void onReady() {}
 
   Future<void> onRefresh([BuildContext? context]) async {

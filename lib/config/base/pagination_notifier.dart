@@ -26,6 +26,8 @@ abstract class PaginationNotifier<T> extends ChangeNotifier
 
   Future Function()? _onLoad;
 
+  /// Called immediately when route opens.
+  /// Perfect to parsing arguments from previous route.
   @mustCallSuper
   void onInit([dynamic args]) {
     requestParams = RequestParams(
