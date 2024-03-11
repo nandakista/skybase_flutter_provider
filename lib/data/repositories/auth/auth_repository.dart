@@ -1,4 +1,4 @@
-import 'package:dio/dio.dart';
+import 'package:skybase/config/base/request_param.dart';
 import 'package:skybase/data/models/repo/repo.dart';
 import 'package:skybase/data/models/user/user.dart';
 
@@ -15,12 +15,12 @@ abstract interface class AuthRepository {
   });
 
   Future<User> getProfile({
-    required CancelToken cancelToken,
+    required RequestParams requestParams,
     required String username,
   });
 
   Future<List<Repo>> getProfileRepository({
-    required CancelToken cancelToken,
+    required RequestParams requestParams,
     required String username,
   });
 }

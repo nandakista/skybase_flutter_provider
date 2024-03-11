@@ -24,7 +24,7 @@ class ProfileRepositoryNotifier extends BaseNotifier<Repo> {
     showLoading();
     try {
       final response = await repository.getProfileRepository(
-        cancelToken: cancelToken,
+        requestParams: requestParams,
         username: 'nandakista',
       );
       loadFinish(list: response);

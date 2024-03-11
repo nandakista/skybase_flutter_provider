@@ -10,8 +10,12 @@ import 'package:skybase/core/mixin/cache_mixin.dart';
 import 'package:skybase/core/mixin/connectivity_mixin.dart';
 import 'package:skybase/core/extension/string_extension.dart';
 
+import 'request_param.dart';
+
 abstract class BaseNotifier<T> extends ChangeNotifier
     with ConnectivityMixin, CacheMixin {
+  late RequestParams requestParams;
+
   CancelToken cancelToken = CancelToken();
   String? errorMessage;
 
@@ -29,6 +33,8 @@ abstract class BaseNotifier<T> extends ChangeNotifier
 
   String get cachedKey => '';
 
+  String get cachedId => '';
+
   bool get isInitial => state.isInitial;
 
   bool get isLoading => state.isLoading;
@@ -43,18 +49,27 @@ abstract class BaseNotifier<T> extends ChangeNotifier
 
   @mustCallSuper
   void onInit([dynamic args]) {
+    requestParams = RequestParams(
+      cancelToken: cancelToken,
+      cachedKey: cachedKey,
+      cachedId: cachedId,
+    );
     listenConnectivity(() {
       if (isError && !isLoading) onRefresh();
     });
     WidgetsBinding.instance.addPostFrameCallback((_) => onReady());
   }
 
+
+  /// Called 1 frame after onInit(). It is the perfect place to enter
+  /// navigation events, like snackbar, dialogs, or a new route, or
+  /// async request.
   @mustCallSuper
   void onReady() {}
 
   Future<void> onRefresh([BuildContext? context]) async {
     if (_onLoad != null) {
-      if (cachedKey.isNotEmpty) await deleteCached(cachedKey);
+      if (cachedKey.isNotEmpty) await deleteCached('$cachedKey/$cachedId');
       if (!keepAlive) showLoading();
       await _onLoad!();
     }

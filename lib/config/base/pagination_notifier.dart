@@ -9,8 +9,12 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:skybase/core/mixin/cache_mixin.dart';
 import 'package:skybase/core/mixin/connectivity_mixin.dart';
 
+import 'request_param.dart';
+
 abstract class PaginationNotifier<T> extends ChangeNotifier
     with ConnectivityMixin, CacheMixin {
+  late RequestParams requestParams;
+
   CancelToken cancelToken = CancelToken();
   int perPage = 20;
   int page = 1;
@@ -18,24 +22,36 @@ abstract class PaginationNotifier<T> extends ChangeNotifier
 
   bool get keepAlive => false;
 
-  String get cachedKey;
+  String get cachedKey => '';
 
   Future Function()? _onLoad;
 
   @mustCallSuper
   void onInit([dynamic args]) {
+    requestParams = RequestParams(
+      cancelToken: cancelToken,
+      cachedKey: cachedKey,
+    );
     listenConnectivity(() {
       if (pagingController.value.status == PagingStatus.firstPageError) {
         onRefresh();
       }
     });
+    WidgetsBinding.instance.addPostFrameCallback((_) => onReady());
   }
+
+  /// Called 1 frame after onInit(). It is the perfect place to enter
+  /// navigation events, like snackbar, dialogs, or a new route, or
+  /// async request.
+  void onReady() {}
 
   @mustCallSuper
   void onRefresh([BuildContext? context]) async {
     if (_onLoad != null) {
       page = 1;
-      await deleteCached(cachedKey);
+      if (cachedKey.isNotEmpty) {
+        await deleteCached(cachedKey);
+      }
       pagingController.value = PagingState(
         nextPageKey: page,
         error: null,

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:skybase/ui/views/utils/component/list/widgets/todo_item.dart';
 import 'package:skybase/ui/widgets/sky_appbar.dart';
@@ -38,14 +40,14 @@ class ListSamplePage extends StatelessWidget {
             child: Text(item),
             onTap: () {
               //
-              print('To detail');
+              log('To detail');
             },
             onDone: () {
-              print('Done Tugas');
+              log('Done Tugas');
             },
             onDoneSub: (context, index) {
               final subItem = subTugas[index];
-              print('Done $subItem');
+              log('Done $subItem');
             },
           );
         },

@@ -12,9 +12,9 @@ class SampleFeatureListNotifier extends PaginationNotifier<SampleFeature> {
   SampleFeatureListNotifier(this.repository);
 
   @override
-  void onInit([dynamic args]) {
+  void onReady() {
     loadData(() => onGetUsers());
-    super.onInit(args);
+    super.onReady();
   }
 
   @override
@@ -26,7 +26,7 @@ class SampleFeatureListNotifier extends PaginationNotifier<SampleFeature> {
   Future<void> onGetUsers() async {
     try {
       final response = await repository.getUsers(
-        cancelToken: cancelToken,
+        requestParams: requestParams,
         page: page,
         perPage: perPage,
       );
