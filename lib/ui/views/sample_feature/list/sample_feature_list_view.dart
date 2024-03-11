@@ -11,7 +11,7 @@ import 'package:skybase/ui/views/sample_feature/detail/sample_feature_detail_vie
 import 'package:skybase/ui/views/sample_feature/list/sample_feature_list_notifier.dart';
 import 'package:skybase/config/base/notifier_view.dart';
 import 'package:skybase/ui/widgets/base/pagination_state_view.dart';
-import 'package:skybase/ui/widgets/shimmer/shimmer_list.dart';
+import 'package:skybase/ui/widgets/shimmer/sample_feature/shimmer_sample_feature_list.dart';
 import 'package:skybase/ui/widgets/sky_appbar.dart';
 import 'package:skybase/ui/widgets/sky_image.dart';
 
@@ -27,7 +27,7 @@ class SampleFeatureListView extends NotifierView<SampleFeatureListNotifier> {
       body: Consumable(
         () => PaginationStateView<SampleFeature>.list(
           pagingController: notifier.pagingController,
-          loadingView: const ShimmerList(),
+          loadingView: const ShimmerSampleFeatureList(),
           onRefresh: notifier.onRefresh,
           itemBuilder: (BuildContext context, item, int index) {
             return ListTile(

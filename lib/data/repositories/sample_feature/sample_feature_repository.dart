@@ -1,15 +1,15 @@
-import 'package:dio/dio.dart';
+import 'package:skybase/config/base/request_param.dart';
 import 'package:skybase/data/models/sample_feature/sample_feature.dart';
 
 abstract interface class SampleFeatureRepository {
   Future<List<SampleFeature>> getUsers({
-    required CancelToken cancelToken,
+    required RequestParams requestParams,
     required int page,
     required int perPage,
   });
 
   Future<SampleFeature> getDetailUser({
-    required CancelToken cancelToken,
+    required RequestParams requestParams,
     required int id,
     required String username,
   });

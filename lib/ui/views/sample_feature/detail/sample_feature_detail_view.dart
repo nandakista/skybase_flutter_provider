@@ -5,7 +5,7 @@ import 'package:skybase/ui/views/sample_feature/detail/widgets/sample_feature_de
 import 'package:skybase/ui/views/sample_feature/detail/widgets/sample_feature_detail_tab.dart';
 import 'package:skybase/config/base/notifier_view.dart';
 import 'package:skybase/ui/widgets/base/state_view.dart';
-import 'package:skybase/ui/widgets/shimmer/shimmer_detail.dart';
+import 'package:skybase/ui/widgets/shimmer/sample_feature/shimmer_sample_feature_detail.dart';
 import 'package:skybase/ui/widgets/sky_appbar.dart';
 
 class SampleFeatureDetailView
@@ -26,7 +26,7 @@ class SampleFeatureDetailView
             loadingEnabled: notifier.isLoading,
             errorEnabled: notifier.isError,
             emptyEnabled: false,
-            loadingView: const ShimmerDetail(),
+            loadingView: const ShimmerSampleFeatureDetail(),
             errorTitle: notifier.errorMessage,
             onRefresh: () => notifier.onRefresh(),
             onRetry: () => notifier.onRefresh(),

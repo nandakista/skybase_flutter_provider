@@ -9,9 +9,9 @@ class ProfileRepositoryNotifier extends BaseNotifier<Repo> {
   ProfileRepositoryNotifier(this.repository);
 
   @override
-  void onInit([dynamic args]) {
+  void onReady() {
     loadData(() => onGetRepository());
-    super.onInit(args);
+    super.onReady();
   }
 
   @override
@@ -24,7 +24,7 @@ class ProfileRepositoryNotifier extends BaseNotifier<Repo> {
     showLoading();
     try {
       final response = await repository.getProfileRepository(
-        cancelToken: cancelToken,
+        requestParams: requestParams,
         username: 'nandakista',
       );
       loadFinish(list: response);

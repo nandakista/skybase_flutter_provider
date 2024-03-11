@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:skybase/config/auth_manager/auth_manager.dart';
 import 'package:skybase/config/base/base_notifier.dart';
 import 'package:skybase/config/base/main_navigation.dart';
+import 'package:skybase/config/base/request_param.dart';
 import 'package:skybase/core/helper/dialog_helper.dart';
 import 'package:skybase/core/helper/validator_helper.dart';
 import 'package:skybase/data/repositories/auth/auth_repository.dart';
@@ -47,7 +48,7 @@ class LoginNotifier extends BaseNotifier {
     LoadingDialog.show(context);
     try {
       final response = await repository.getProfile(
-        cancelToken: cancelToken,
+        requestParams: RequestParams(cancelToken: cancelToken),
         username: 'nandakista',
       );
       await AuthManager.instance.login(

@@ -9,7 +9,9 @@ class LoginBinding extends Binding {
   @override
   List<SingleChildWidget> dependencies(args) {
     return [
-      ChangeNotifierProvider(create: (_) => sl<LoginNotifier>()),
+      ChangeNotifierProvider(
+        create: (_) => sl<LoginNotifier>()..onInit(),
+      ),
     ];
   }
 }
