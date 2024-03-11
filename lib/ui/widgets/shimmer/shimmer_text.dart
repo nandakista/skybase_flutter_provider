@@ -27,14 +27,14 @@ class ShimmerText extends StatelessWidget {
       ShimmerText(height: 12, width: width);
 
   const ShimmerText({
-    Key? key,
+    super.key,
     this.height,
     this.width,
     this.radius,
     this.margin,
     this.padding,
     this.baseColor,
-  }) : super(key: key);
+  });
 
   final double? height;
   final double? width;

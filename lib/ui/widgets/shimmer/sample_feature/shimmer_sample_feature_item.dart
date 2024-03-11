@@ -17,38 +17,32 @@ class ShimmerSampleFeatureItem extends StatelessWidget {
     Color shimmerColor =  context.isDarkMode ? Colors.black54 : Colors.white;
     Color baseDark = Colors.grey[700]?? Colors.grey;
     Color baseLight = Colors.grey[300] ?? Colors.grey;
-    return SizedBox(
-      height: height * 1.5,
-      child: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: Shimmer.fromColors(
-          baseColor: context.isDarkMode ?  baseDark : baseLight,
-          highlightColor: shimmerColor,
-          child: Column(
-            children: [
-              Row(
+    return Padding(
+      padding: const EdgeInsets.all(12.0),
+      child: Shimmer.fromColors(
+        baseColor: context.isDarkMode ?  baseDark : baseLight,
+        highlightColor: shimmerColor,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            CircleAvatar(
+              radius: 30,
+              backgroundColor: shimmerColor,
+            ),
+            const SizedBox(width: 8),
+            const Expanded(
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  CircleAvatar(
-                    radius: 30,
-                    backgroundColor: shimmerColor,
-                  ),
-                  const SizedBox(width: 8),
-                  const Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        ShimmerText(),
-                        SizedBox(height: 4),
-                        ShimmerText(),
-                        SizedBox(height: 4),
-                      ],
-                    ),
-                  ),
+                  ShimmerText(),
+                  SizedBox(height: 4),
+                  ShimmerText(),
+                  SizedBox(height: 4),
+                  ShimmerText(width: 40),
                 ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
