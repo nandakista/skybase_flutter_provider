@@ -18,7 +18,7 @@ class ProfileNotifier extends BaseNotifier<User> {
 
   @override
   Future<void> onRefresh([BuildContext? context]) async {
-    await onGetProfile();
+    super.onRefresh(context);
     await context?.read<ProfileRepositoryNotifier>().onRefresh();
   }
 
