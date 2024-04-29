@@ -14,7 +14,6 @@ class SampleFeatureListNotifier extends PaginationNotifier<SampleFeature> {
   @override
   void onReady() {
     loadData(() => onGetUsers());
-    super.onReady();
   }
 
   @override

@@ -29,6 +29,7 @@ class SampleFeatureListView extends NotifierView<SampleFeatureListNotifier> {
           pagingController: notifier.pagingController,
           loadingView: const ShimmerSampleFeatureList(),
           onRefresh: notifier.onRefresh,
+          onRetry: notifier.onRefresh,
           itemBuilder: (BuildContext context, item, int index) {
             return ListTile(
               onTap: () {
