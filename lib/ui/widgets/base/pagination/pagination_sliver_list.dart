@@ -17,6 +17,7 @@ class PaginationSliverList<T> extends StatelessWidget {
     super.key,
     required this.pagingController,
     required this.itemBuilder,
+    required this.onRetry,
     this.loadingView,
     this.emptyView,
     this.errorView,
@@ -54,6 +55,7 @@ class PaginationSliverList<T> extends StatelessWidget {
 
   final PagingController<int, T> pagingController;
   final ItemWidgetBuilder<T> itemBuilder;
+  final VoidCallback onRetry;
   final bool emptyRetryEnabled;
   final Widget? loadingView;
   final Widget? emptyView;
@@ -102,6 +104,7 @@ class PaginationSliverList<T> extends StatelessWidget {
         addRepaintBoundaries: addRepaintBoundaries,
         builderDelegate: PaginationDelegate<T>(
           pagingController: pagingController,
+          onRetry: onRetry,
           loadingView: loadingView,
           emptyView: emptyView,
           emptyRetryEnabled: emptyRetryEnabled,
