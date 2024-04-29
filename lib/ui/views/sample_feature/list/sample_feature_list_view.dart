@@ -30,6 +30,7 @@ class SampleFeatureListView extends StatelessWidget {
             pagingController: notifier.pagingController,
             loadingView: const ShimmerSampleFeatureList(),
             onRefresh: notifier.onRefresh,
+            onRetry: notifier.onRefresh,
             itemBuilder: (BuildContext context, item, int index) {
               return ListTile(
                 onTap: () {
@@ -55,7 +56,7 @@ class SampleFeatureListView extends StatelessWidget {
               );
             },
           );
-        }
+        },
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: AppColors.primary,
