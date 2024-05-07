@@ -159,7 +159,7 @@ class SkyButton extends StatelessWidget {
                     fontWeight: fontWeight,
                     color: (!enabled)
                         ? Colors.grey.shade400
-                        : textColor ?? (outlineMode ? color : textColor),
+                        : textColor ?? (outlineMode ? color : textColor ?? Colors.white),
                   ),
                 ),
           ),
