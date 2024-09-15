@@ -21,15 +21,15 @@ class SampleFeatureListView extends NotifierView<SampleFeatureListNotifier> {
   const SampleFeatureListView({super.key});
 
   @override
-  Widget build(BuildContext context, SampleFeatureListNotifier notifier) {
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: SkyAppBar.secondary(title: 'txt_list_users'.tr()),
       body: Consumable(
         () => PaginationStateView<SampleFeature>.list(
           pagingController: notifier.pagingController,
           loadingView: const ShimmerSampleFeatureList(),
-          onRefresh: notifier.onRefresh,
-          onRetry: notifier.onRefresh,
+          onRefresh: () => notifier.onRefresh(context),
+          onRetry: () => notifier.onRefresh(context),
           itemBuilder: (BuildContext context, item, int index) {
             return ListTile(
               onTap: () {

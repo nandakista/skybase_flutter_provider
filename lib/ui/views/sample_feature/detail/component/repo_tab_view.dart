@@ -18,8 +18,8 @@ class RepoTabView extends StatelessWidget {
       itemBuilder: (_, index) {
         final Repo? repos = data.repositoryList?[index];
         return (repos == null)
-            ? const Center(
-                child: Text('User belum mem-follow siapapun'),
+            ? Center(
+                child: Text('txt_no_repository'.tr()),
               )
             : ListTile(
                 leading: SkyImage(
