@@ -48,7 +48,7 @@ abstract class PaginationNotifier<T> extends ChangeNotifier
   void onReady() {}
 
   @mustCallSuper
-  void onRefresh([BuildContext? context]) async {
+  Future<void> onRefresh([BuildContext? context]) async {
     if (_onLoad != null) {
       page = 1;
       if (cachedKey.isNotEmpty) {

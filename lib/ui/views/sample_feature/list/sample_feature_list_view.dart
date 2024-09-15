@@ -29,8 +29,8 @@ class SampleFeatureListView extends StatelessWidget {
           return PaginationStateView<SampleFeature>.list(
             pagingController: notifier.pagingController,
             loadingView: const ShimmerSampleFeatureList(),
-            onRefresh: notifier.onRefresh,
-            onRetry: notifier.onRefresh,
+            onRefresh: () => notifier.onRefresh(context),
+            onRetry: () => notifier.onRefresh(context),
             itemBuilder: (BuildContext context, item, int index) {
               return ListTile(
                 onTap: () {
