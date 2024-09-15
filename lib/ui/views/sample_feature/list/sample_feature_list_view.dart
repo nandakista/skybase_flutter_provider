@@ -21,7 +21,7 @@ class SampleFeatureListView extends NotifierView<SampleFeatureListNotifier> {
   const SampleFeatureListView({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, SampleFeatureListNotifier notifier) {
     return Scaffold(
       appBar: SkyAppBar.secondary(title: 'txt_list_users'.tr()),
       body: Consumable(

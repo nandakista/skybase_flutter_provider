@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:skybase/config/themes/app_style.dart';
 import 'package:skybase/data/models/repo/repo.dart';
