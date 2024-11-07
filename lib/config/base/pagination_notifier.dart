@@ -50,15 +50,17 @@ abstract class PaginationNotifier<T> extends ChangeNotifier
   @mustCallSuper
   Future<void> onRefresh([BuildContext? context]) async {
     if (_onLoad != null) {
-      page = 1;
       if (cachedKey.isNotEmpty) {
         await deleteCached(cachedKey);
       }
-      pagingController.value = PagingState(
-        nextPageKey: page,
-        error: null,
-        itemList: keepAlive ? _keepAliveData : null,
-      );
+      if (page > 1) {
+        page = 1;
+        pagingController.value = PagingState(
+          nextPageKey: page,
+          error: null,
+          itemList: keepAlive ? _keepAliveData : null,
+        );
+      }
       await _onLoad!();
       notifyListeners();
     }
