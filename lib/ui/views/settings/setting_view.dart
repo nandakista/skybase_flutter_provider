@@ -3,10 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:skybase/config/app/app_info.dart';
-import 'package:skybase/config/auth_manager/auth_manager.dart';
 import 'package:skybase/config/themes/app_style.dart';
 import 'package:skybase/config/themes/theme_manager.dart';
-import 'package:skybase/core/helper/dialog_helper.dart';
 import 'package:skybase/ui/views/settings/setting_notifier.dart';
 import 'package:skybase/ui/widgets/colored_status_bar.dart';
 import 'package:skybase/ui/widgets/sky_appbar.dart';
@@ -37,12 +35,15 @@ class SettingView extends StatelessWidget {
                 style: AppStyle.body2.copyWith(color: Colors.grey),
               ),
               const SizedBox(height: 12),
-              SkyButton(
-                onPressed: () {
-                  LoadingDialog.show(context);
-                  AuthManager.instance.logout();
-                },
-                text: 'txt_logout'.tr(),
+              Consumer<SettingNotifier>(
+                builder: (context, notifier, child) {
+                  return SkyButton(
+                    onPressed: () {
+                      notifier.onLogout(context);
+                    },
+                    text: 'txt_logout'.tr(),
+                  );
+                }
               ),
             ],
           ),

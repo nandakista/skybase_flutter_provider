@@ -29,7 +29,7 @@ class PaginationSliverGrid<T> extends StatelessWidget {
     this.loadingView,
     this.emptyView,
     this.errorView,
-    this.errorLoadView,
+    this.errorLoadMoreView,
     this.maxItemView,
     this.emptyImage,
     this.emptyTitle,
@@ -66,7 +66,7 @@ class PaginationSliverGrid<T> extends StatelessWidget {
   final Widget? emptyView;
   final Widget? maxItemView;
   final Widget? errorView;
-  final Widget? errorLoadView;
+  final Widget? errorLoadMoreView;
   final VoidCallback? onRefresh;
   final Widget? emptyImageWidget;
   final String? emptyImage;
@@ -134,7 +134,7 @@ class PaginationSliverGrid<T> extends StatelessWidget {
           imageHeight: imageHeight,
           imageWidth: imageWidth,
           itemBuilder: itemBuilder,
-          errorLoadView: errorLoadView,
+          errorLoadMoreView: errorLoadMoreView,
           errorView: errorView,
         ),
       ),

@@ -7,6 +7,10 @@ A Flutter Base project that developed with :
 - Go Router
 - Dio
 
+# Branch Version
+1. If you are Getx users, we recommend you to check branch [3-new-feature-dependencies-binding](https://github.com/nandakista/skybase_flutter_provider/tree/3-new-feature-dependencies-binding). We created an architecture very similar to getx
+2. If you are not Getx users, we recommend you to check the master branch
+
 ## How to run
 Follow step below to run :
 1. Type `flutter pub get` in terminal
