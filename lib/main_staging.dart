@@ -12,8 +12,8 @@ void main() async {
     environment: Environment.STAGING,
     configuration: ConfigData(
       baseUrl: 'https://api.github.staging.com',
-      clientToken: gitToken,
       tokenType: TokenType.ACCESS_TOKEN,
+      clientToken: gitToken,
     ),
   );
   main_app.main();

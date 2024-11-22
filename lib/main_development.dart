@@ -12,8 +12,8 @@ void main() async {
     environment: Environment.DEVELOPMENT,
     configuration: ConfigData(
       baseUrl: 'https://api.github.com',
-      clientToken: gitToken,
       tokenType: TokenType.ACCESS_TOKEN,
+      clientToken: gitToken,
     ),
   );
   main_app.main();

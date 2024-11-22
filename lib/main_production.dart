@@ -12,8 +12,8 @@ void main() async {
     environment: Environment.PRODUCTION,
     configuration: ConfigData(
       baseUrl: 'https://api.github.production.com',
-      clientToken: gitToken,
       tokenType: TokenType.ACCESS_TOKEN,
+      clientToken: gitToken,
     ),
   );
   main_app.main();
