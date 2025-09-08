@@ -19,6 +19,7 @@ abstract class PaginationNotifier<T> extends ChangeNotifier
   int perPage = 20;
   int page = 1;
   final pagingController = PagingController<int, T>(firstPageKey: 1);
+  final scrollController = ScrollController();
 
   bool get keepAlive => false;
 
@@ -66,6 +67,21 @@ abstract class PaginationNotifier<T> extends ChangeNotifier
     }
   }
 
+  /// if keepAlive = true the loading state never show
+  void resetState({bool keepAlive = false}) {
+    page = 1;
+    pagingController.value = PagingState(
+      nextPageKey: page,
+      error: null,
+      itemList: keepAlive ? _keepAliveData : null,
+    );
+    scrollController.animateTo(
+      0,
+      duration: const Duration(milliseconds: 500),
+      curve: Curves.easeInOut,
+    );
+  }
+
   void loadData(Future Function() onLoad) async {
     pagingController.addPageRequestListener((page) async {
       if (page > 1) await onLoad();
@@ -106,6 +122,7 @@ abstract class PaginationNotifier<T> extends ChangeNotifier
     cancelConnectivity();
     pagingController.dispose();
     cancelToken.cancel();
+    scrollController.dispose();
     super.dispose();
   }
 }

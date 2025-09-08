@@ -19,16 +19,18 @@ class SampleFeatureRepositoryImpl extends BaseRepository
     required RequestParams requestParams,
     required int page,
     required int perPage,
+    String? username,
   }) async {
     try {
       // Using cached
       return await loadCachedList(
         cachedKey: requestParams.cachedKey.toString(),
-        page: page,
+        loadWhen: page == 1 && username == null,
         onLoad: () async => await apiService.getUsers(
           cancelToken: requestParams.cancelToken,
           page: page,
           perPage: perPage,
+          username: username,
         ),
       );
 
@@ -37,6 +39,7 @@ class SampleFeatureRepositoryImpl extends BaseRepository
       //   cancelToken: requestParams.cancelToken,
       //   page: page,
       //   perPage: perPage,
+      //   username: username,
       // );
     } catch (e, stack) {
       log('$tag error = $e, $stack');

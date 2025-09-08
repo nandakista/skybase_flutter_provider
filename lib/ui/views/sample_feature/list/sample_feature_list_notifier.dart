@@ -11,6 +11,8 @@ class SampleFeatureListNotifier extends PaginationNotifier<SampleFeature> {
 
   SampleFeatureListNotifier(this.repository);
 
+  String? searchQuery;
+
   @override
   void onReady() {
     loadData(() => onGetUsers());
@@ -28,6 +30,7 @@ class SampleFeatureListNotifier extends PaginationNotifier<SampleFeature> {
         requestParams: requestParams,
         page: page,
         perPage: perPage,
+        username: searchQuery,
       );
       loadNextData(data: response);
     } catch (e) {
@@ -49,5 +52,16 @@ class SampleFeatureListNotifier extends PaginationNotifier<SampleFeature> {
         'username': username,
       },
     );
+  }
+
+  void onUpdateSearch({required String? search}) async {
+    try {
+      searchQuery = search;
+      resetState();
+      await onGetUsers();
+    } catch (e) {
+      debugPrint('Error : $e');
+      loadError(e.toString());
+    }
   }
 }

@@ -10,16 +10,15 @@ import 'package:skybase/core/mixin/cache_mixin.dart';
 abstract class BaseRepository with CacheMixin {
   final String _tag = 'BaseRepository::->';
 
-  /// Save list data in cache, only saving for page 1
+  /// Save list data in cache, only when [loadWhen] is true
   Future<List<T>> loadCachedList<T>({
     required String cachedKey,
-    required int page,
     required Future<List<T>> Function() onLoad,
+    bool loadWhen = false,
   }) async {
     try {
       List<T> result = [];
-      log('$_tag page = $page');
-      if (page == 1) {
+      if (loadWhen) {
         result = await getCachedList(key: cachedKey);
         if (result.isNotEmpty) {
           onLoad().then((value) => saveCachedList(key: cachedKey, list: value));

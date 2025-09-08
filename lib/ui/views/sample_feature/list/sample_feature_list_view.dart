@@ -28,6 +28,7 @@ class SampleFeatureListView extends StatelessWidget {
         builder: (context, notifier, child) {
           return PaginationStateView<SampleFeature>.list(
             pagingController: notifier.pagingController,
+            scrollController: notifier.scrollController,
             loadingView: const ShimmerSampleFeatureList(),
             onRefresh: () => notifier.onRefresh(context),
             onRetry: () => notifier.onRefresh(context),
@@ -37,10 +38,7 @@ class SampleFeatureListView extends StatelessWidget {
                   Navigation.instance.push(
                     context,
                     SampleFeatureDetailView.route,
-                    arguments: {
-                      'id': item.id,
-                      'username': item.username,
-                    },
+                    arguments: {'id': item.id, 'username': item.username},
                   );
                 },
                 leading: SkyImage(
@@ -49,24 +47,44 @@ class SampleFeatureListView extends StatelessWidget {
                   src: '${item.avatarUrl}&s=200',
                 ),
                 title: Text(item.username.toString()),
-                subtitle: Text(
-                  item.gitUrl.toString(),
-                  style: AppStyle.body2,
-                ),
+                subtitle: Text(item.gitUrl.toString(), style: AppStyle.body2),
               );
             },
           );
         },
       ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: AppColors.primary,
-        onPressed: () async {
-          LoadingDialog.show(context);
-          await StorageManager.instance.delete(CachedKey.SAMPLE_FEATURE_LIST);
-          await StorageManager.instance.delete(CachedKey.SAMPLE_FEATURE_DETAIL);
-          if (context.mounted) LoadingDialog.dismiss(context);
-        },
-        child: const Icon(Icons.delete, color: Colors.white),
+
+      floatingActionButton: Align(
+        alignment: Alignment.bottomRight,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          spacing: 12,
+          children: [
+            FloatingActionButton(
+              backgroundColor: AppColors.primary,
+              onPressed: () async {
+                LoadingDialog.show(context);
+                await StorageManager.instance.delete(
+                  CachedKey.SAMPLE_FEATURE_LIST,
+                );
+                await StorageManager.instance.delete(
+                  CachedKey.SAMPLE_FEATURE_DETAIL,
+                );
+                if (context.mounted) LoadingDialog.dismiss(context);
+              },
+              child: const Icon(Icons.delete, color: Colors.white),
+            ),
+            FloatingActionButton(
+              backgroundColor: AppColors.primary,
+              onPressed: () {
+                context.read<SampleFeatureListNotifier>().onUpdateSearch(
+                  search: 'ada',
+                );
+              },
+              child: const Icon(Icons.search, color: Colors.white),
+            ),
+          ],
+        ),
       ),
     );
   }

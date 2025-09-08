@@ -6,6 +6,7 @@ abstract interface class SampleFeatureRepository {
     required RequestParams requestParams,
     required int page,
     required int perPage,
+    String? username,
   });
 
   Future<SampleFeature> getDetailUser({
