@@ -4,7 +4,7 @@ import 'package:skybase/config/auth_manager/auth_manager.dart';
 import 'package:skybase/config/base/main_navigation.dart';
 import 'package:skybase/config/base/request_param.dart';
 import 'package:skybase/core/helper/dialog_helper.dart';
-import 'package:skybase/core/helper/validator_helper.dart';
+import 'package:skybase/core/helper/form_state_extension.dart';
 import 'package:skybase/data/repositories/auth/auth_repository.dart';
 import 'package:skybase/ui/views/main_navigation/main_nav_view.dart';
 
@@ -27,23 +27,23 @@ class LoginNotifier extends ChangeNotifier {
   }
 
   void login(BuildContext context) async {
-    if (ValidatorHelper.validateForm(formKey)) {
-      try {
-        LoadingDialog.show(context);
-        await repository.login(
-          phoneNumber: phoneController.text,
-          email: emailController.text,
-          password: passwordController.text,
-        );
-        if (context.mounted) {
-          LoadingDialog.dismiss(context);
-          Navigation.instance.pushAllReplacement(context, MainNavView.route);
-        }
-      } catch (e) {
-        if (context.mounted) {
-          LoadingDialog.dismiss(context);
-          DialogHelper.failed(context: context, message: e.toString());
-        }
+    bool isValid = formKey.saveAndValidate();
+    if (!isValid) return;
+    try {
+      LoadingDialog.show(context);
+      await repository.login(
+        phoneNumber: phoneController.text,
+        email: emailController.text,
+        password: passwordController.text,
+      );
+      if (context.mounted) {
+        LoadingDialog.dismiss(context);
+        Navigation.instance.pushAllReplacement(context, MainNavView.route);
+      }
+    } catch (e) {
+      if (context.mounted) {
+        LoadingDialog.dismiss(context);
+        DialogHelper.failed(context: context, message: e.toString());
       }
     }
   }

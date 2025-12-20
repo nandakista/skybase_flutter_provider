@@ -1,6 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:skybase/core/helper/validator_helper.dart';
+import 'package:skybase/core/helper/validator.dart';
 import 'package:skybase/config/themes/app_colors.dart';
 import 'package:skybase/config/themes/app_style.dart';
 import 'package:skybase/ui/views/login/login_notifier.dart';
@@ -61,11 +61,7 @@ class LoginView extends NotifierView<LoginNotifier> {
                           controller: notifier(context).phoneController,
                           keyboardType: TextInputType.phone,
                           icon: Icons.phone,
-                          validator: (value) => ValidatorHelper.field(
-                            title: 'txt_phone'.tr(),
-                            value: value.toString(),
-                            regex: AppRegex.phone,
-                          ),
+                          validator: Validator.phone(),
                         ),
                         const SizedBox(height: 20),
                         SkyPasswordFormField(
@@ -78,11 +74,7 @@ class LoginView extends NotifierView<LoginNotifier> {
                             icon: const Icon(Icons.visibility_off),
                             onPressed: notifier(context).hidePassword,
                           ),
-                          validator: (value) => ValidatorHelper.field(
-                            title: 'txt_password'.tr(),
-                            value: value.toString(),
-                            regex: AppRegex.password,
-                          ),
+                          validator: Validator.password(),
                         ),
                         const SizedBox(height: 20),
                         SkyButton(
