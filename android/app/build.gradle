@@ -50,7 +50,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.skybase.provider"
+        applicationId "com.skybase.cubit"
         minSdkVersion 24
         targetSdkVersion 35
         versionCode flutterVersionCode.toInteger()
@@ -81,7 +81,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-    namespace 'com.skybase.provider'
+    namespace 'com.skybase.cubit'
 
     applicationVariants.all { variant ->
         variant.outputs.each { output ->

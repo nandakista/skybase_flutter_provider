@@ -12,12 +12,13 @@ import 'package:skybase/data/repositories/sample_feature/sample_feature_reposito
 import 'package:skybase/data/sources/server/auth/auth_sources.dart';
 import 'package:skybase/data/sources/server/auth/auth_sources_impl.dart';
 import 'package:skybase/data/sources/server/sample_feature/sample_feature_sources.dart';
-import 'package:skybase/ui/views/intro/intro_notifier.dart';
-import 'package:skybase/ui/views/login/login_notifier.dart';
-import 'package:skybase/ui/views/profile/component/repository/profile_repository_notifier.dart';
-import 'package:skybase/ui/views/profile/profile_notifier.dart';
-import 'package:skybase/ui/views/sample_feature/list/sample_feature_list_notifier.dart';
-import 'package:skybase/ui/views/settings/setting_notifier.dart';
+import 'package:skybase/ui/views/intro/cubit/intro_cubit.dart';
+import 'package:skybase/ui/views/login/cubit/login_cubit.dart';
+import 'package:skybase/ui/views/profile/component/repository/cubit/profile_repository_cubit.dart';
+import 'package:skybase/ui/views/profile/cubit/profile_cubit.dart';
+import 'package:skybase/ui/views/sample_feature/detail/cubit/sample_feature_detail_cubit.dart';
+import 'package:skybase/ui/views/sample_feature/list/cubit/sample_feature_list_cubit.dart';
+import 'package:skybase/ui/views/settings/cubit/setting_cubit.dart';
 
 import 'config/auth_manager/auth_manager.dart';
 import 'config/network/api_config.dart';
@@ -27,7 +28,6 @@ import 'core/database/storage/storage_manager.dart';
 import 'core/database/secure_storage/secure_storage_manager.dart';
 import 'data/repositories/sample_feature/sample_feature_repository.dart';
 import 'data/sources/server/sample_feature/sample_feature_sources_impl.dart';
-import 'ui/views/sample_feature/detail/sample_feature_detail_notifier.dart';
 
 /* Created by
    Varcant
@@ -43,9 +43,11 @@ class ServiceLocator {
     AppInfo.setInfo(await PackageInfo.fromPlatform());
 
     // _initConfig
-    sl.registerSingleton(const FlutterSecureStorage(
-      aOptions: AndroidOptions(encryptedSharedPreferences: true),
-    ));
+    sl.registerSingleton(
+      const FlutterSecureStorage(
+        aOptions: AndroidOptions(encryptedSharedPreferences: true),
+      ),
+    );
     sl.registerLazySingleton(() => Dio());
     sl.registerLazySingleton(() => DioClient());
     sl.registerSingleton<SharedPreferences>(sharedPreferences);
@@ -73,16 +75,16 @@ class ServiceLocator {
     );
 
     // Provider
-    sl.registerFactory(() => LoginNotifier(sl<AuthRepository>()));
-    sl.registerFactory(() => IntroNotifier());
-    sl.registerFactory(() => SettingNotifier());
-    sl.registerFactory(() => ProfileNotifier(sl<AuthRepository>()));
-    sl.registerFactory(() => ProfileRepositoryNotifier(sl<AuthRepository>()));
+    sl.registerFactory(() => IntroCubit());
+    sl.registerFactory(() => LoginCubit(sl<AuthRepository>()));
+    sl.registerFactory(() => ProfileCubit(sl<AuthRepository>()));
+    sl.registerFactory(() => SettingCubit());
+    sl.registerFactory(() => ProfileRepositoryCubit(sl<AuthRepository>()));
     sl.registerFactory(
-      () => SampleFeatureListNotifier(sl<SampleFeatureRepository>()),
+      () => SampleFeatureListCubit(sl<SampleFeatureRepository>()),
     );
     sl.registerFactory(
-      () => SampleFeatureDetailNotifier(sl<SampleFeatureRepository>()),
+      () => SampleFeatureDetailCubit(sl<SampleFeatureRepository>()),
     );
   }
 }

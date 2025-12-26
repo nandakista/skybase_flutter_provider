@@ -1,19 +1,31 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:skybase/config/app/app_info.dart';
 import 'package:skybase/config/themes/app_style.dart';
 import 'package:skybase/config/themes/theme_manager.dart';
-import 'package:skybase/ui/views/settings/setting_notifier.dart';
 import 'package:skybase/ui/widgets/colored_status_bar.dart';
 import 'package:skybase/ui/widgets/sky_appbar.dart';
 import 'package:skybase/ui/widgets/sky_button.dart';
 
-class SettingView extends StatelessWidget {
+import 'cubit/setting_cubit.dart';
+
+class SettingView extends StatefulWidget {
   static const String route = '/setting';
 
   const SettingView({super.key});
+
+  @override
+  State<SettingView> createState() => _SettingViewState();
+}
+
+class _SettingViewState extends State<SettingView> {
+  @override
+  void initState() {
+    super.initState();
+    Future.microtask(() => context.read<SettingCubit>());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,15 +47,11 @@ class SettingView extends StatelessWidget {
                 style: AppStyle.body2.copyWith(color: Colors.grey),
               ),
               const SizedBox(height: 12),
-              Consumer<SettingNotifier>(
-                builder: (context, notifier, child) {
-                  return SkyButton(
-                    onPressed: () {
-                      notifier.onLogout(context);
-                    },
-                    text: 'txt_logout'.tr(),
-                  );
-                }
+              SkyButton(
+                onPressed: () {
+                  context.read<SettingCubit>().onLogout(context);
+                },
+                text: 'txt_logout'.tr(),
               ),
             ],
           ),
@@ -57,42 +65,38 @@ class SettingView extends StatelessWidget {
                 children: [
                   Flexible(child: Text('txt_language'.tr())),
                   Flexible(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        const Text('ENG'),
-                        Consumer<SettingNotifier>(
-                          builder: (context, notifier, child) {
-                            return Radio<String>(
+                    child: BlocBuilder<SettingCubit, SettingState>(
+                      builder: (context, state) {
+                        return Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            const Text('ENG'),
+                            Radio<String>(
                               value: 'en',
-                              groupValue: notifier.languageCode,
+                              groupValue: state.languageCode,
                               onChanged: (value) {
-                                notifier.onUpdateLocale(
-                                  context,
+                                context.read<SettingCubit>().onUpdateLocale(
+                                  context: context,
                                   languageCode: value.toString(),
                                 );
                               },
-                            );
-                          },
-                        ),
-                        const Text('ID'),
-                        Consumer<SettingNotifier>(
-                            builder: (context, notifier, child) {
-                              return Radio(
-                                value: 'id',
-                                groupValue: notifier.languageCode,
-                                onChanged: (value) async {
-                                  notifier.onUpdateLocale(
-                                    context,
-                                    languageCode: value.toString(),
-                                  );
-                                },
-                              );
-                            }
-                        ),
-                      ],
+                            ),
+                            const Text('ID'),
+                            Radio(
+                              value: 'id',
+                              groupValue: state.languageCode,
+                              onChanged: (value) async {
+                                context.read<SettingCubit>().onUpdateLocale(
+                                  context: context,
+                                  languageCode: value.toString(),
+                                );
+                              },
+                            ),
+                          ],
+                        );
+                      },
                     ),
-                  )
+                  ),
                 ],
               ),
               const Divider(color: Colors.grey),
@@ -100,15 +104,15 @@ class SettingView extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text('txt_dark_mode'.tr()),
-                  Consumer<ThemeManager>(
-                      builder: (context, notifier, child) {
-                        return Switch(
-                          value: notifier.isDark,
-                          onChanged: (value) {
-                            notifier.changeTheme();
-                          },
-                        );
-                      }
+                  BlocBuilder<ThemeManager, ThemeState>(
+                    builder: (context, state) {
+                      return Switch(
+                        value: state is IsDarkMode,
+                        onChanged: (value) {
+                          context.read<ThemeManager>().changeTheme();
+                        },
+                      );
+                    },
                   ),
                 ],
               ),

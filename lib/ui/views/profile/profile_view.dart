@@ -1,14 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skybase/config/themes/app_style.dart';
 import 'package:skybase/config/base/main_navigation.dart';
-import 'package:skybase/ui/views/profile/profile_notifier.dart';
 import 'package:skybase/ui/views/settings/setting_view.dart';
 import 'package:skybase/ui/widgets/base/state_view.dart';
 import 'package:skybase/ui/widgets/sky_image.dart';
 
 import 'component/repository/profile_repository_view.dart';
+import 'cubit/profile_cubit.dart';
 
 class ProfileView extends StatelessWidget {
   static const String route = '/profile';
@@ -32,15 +32,19 @@ class ProfileView extends StatelessWidget {
           const SizedBox(width: 8),
         ],
       ),
-      body: Consumer<ProfileNotifier>(
-        builder: (context, notifier, child) {
+      body: BlocBuilder<ProfileCubit, ProfileState>(
+          builder: (context, state) {
+            final cubit = context.read<ProfileCubit>();
+            final data = (state is ProfileLoaded) ? state.result : null;
+            final errMessage = (state is ProfileError) ? state.message : null;
+
           return StateView.page(
-            loadingEnabled: notifier.isLoading,
-            errorEnabled: notifier.isError,
+            loadingEnabled: state is ProfileLoading,
+            errorEnabled: state is ProfileError,
             emptyEnabled: false,
-            errorTitle: notifier.errorMessage,
-            onRetry: () => notifier.onRefresh(context),
-            onRefresh: () => notifier.onRefresh(context),
+            errorTitle: errMessage,
+            onRetry: () => cubit.onRefresh(context),
+            onRefresh: () => cubit.onRefresh(context),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24),
               child: Column(
@@ -48,14 +52,14 @@ class ProfileView extends StatelessWidget {
                   SkyImage(
                     shapeImage: ShapeImage.circle,
                     size: 40,
-                    src: '${notifier.dataObj?.avatarUrl}&s=200',
+                    src: '${data?.avatarUrl}&s=200',
                   ),
                   const SizedBox(height: 12),
                   Text(
-                    notifier.dataObj?.name ?? '--',
+                    data?.name ?? '--',
                     style: AppStyle.headline3,
                   ),
-                  Text(notifier.dataObj?.bio ?? '--'),
+                  Text(data?.bio ?? '--'),
                   const SizedBox(height: 24),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -63,7 +67,7 @@ class ProfileView extends StatelessWidget {
                       Column(
                         children: [
                           Text(
-                            '${notifier.dataObj?.repository ?? 0}',
+                            '${data?.repository ?? 0}',
                             style: AppStyle.headline3,
                           ),
                           const Text('Repository'),
@@ -72,7 +76,7 @@ class ProfileView extends StatelessWidget {
                       Column(
                         children: [
                           Text(
-                            '${notifier.dataObj?.followers ?? 0}',
+                            '${data?.followers ?? 0}',
                             style: AppStyle.headline3,
                           ),
                           const Text('Follower'),
@@ -81,7 +85,7 @@ class ProfileView extends StatelessWidget {
                       Column(
                         children: [
                           Text(
-                            '${notifier.dataObj?.following ?? 0}',
+                            '${data?.following ?? 0}',
                             style: AppStyle.headline3,
                           ),
                           const Text('Following'),
@@ -93,13 +97,13 @@ class ProfileView extends StatelessWidget {
                   Row(
                     children: [
                       const Icon(Icons.location_city),
-                      Text(' ${notifier.dataObj?.company ?? '--'}'),
+                      Text(' ${data?.company ?? '--'}'),
                     ],
                   ),
                   Row(
                     children: [
                       const Icon(Icons.location_on),
-                      Text(' ${notifier.dataObj?.location ?? '--'}'),
+                      Text(' ${data?.location ?? '--'}'),
                     ],
                   ),
                   const SizedBox(height: 8),

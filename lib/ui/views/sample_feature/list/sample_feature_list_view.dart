@@ -1,6 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skybase/core/database/storage/storage_manager.dart';
 import 'package:skybase/config/themes/app_colors.dart';
 import 'package:skybase/config/themes/app_style.dart';
@@ -9,11 +9,12 @@ import 'package:skybase/data/models/sample_feature/sample_feature.dart';
 import 'package:skybase/data/sources/local/cached_key.dart';
 import 'package:skybase/config/base/main_navigation.dart';
 import 'package:skybase/ui/views/sample_feature/detail/sample_feature_detail_view.dart';
-import 'package:skybase/ui/views/sample_feature/list/sample_feature_list_notifier.dart';
 import 'package:skybase/ui/widgets/base/pagination_state_view.dart';
 import 'package:skybase/ui/widgets/shimmer/sample_feature/shimmer_sample_feature_list.dart';
 import 'package:skybase/ui/widgets/sky_appbar.dart';
 import 'package:skybase/ui/widgets/sky_image.dart';
+
+import 'cubit/sample_feature_list_cubit.dart';
 
 class SampleFeatureListView extends StatelessWidget {
   static const String route = '/user-list';
@@ -24,14 +25,15 @@ class SampleFeatureListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: SkyAppBar.secondary(title: 'txt_list_users'.tr()),
-      body: Consumer<SampleFeatureListNotifier>(
-        builder: (context, notifier, child) {
+      body: BlocBuilder<SampleFeatureListCubit, SampleFeatureListState>(
+        builder: (context, state) {
+          final cubit = context.read<SampleFeatureListCubit>();
           return PaginationStateView<SampleFeature>.list(
-            pagingController: notifier.pagingController,
-            scrollController: notifier.scrollController,
+            pagingController: cubit.pagingController,
             loadingView: const ShimmerSampleFeatureList(),
-            onRefresh: () => notifier.onRefresh(context),
-            onRetry: () => notifier.onRefresh(context),
+            onRefresh: () => cubit.onRefresh(),
+            scrollController: cubit.scrollController,
+            onRetry: () => cubit.onRefresh(context),
             itemBuilder: (BuildContext context, item, int index) {
               return ListTile(
                 onTap: () {
@@ -61,6 +63,7 @@ class SampleFeatureListView extends StatelessWidget {
           spacing: 12,
           children: [
             FloatingActionButton(
+              heroTag: 'clear_cache',
               backgroundColor: AppColors.primary,
               onPressed: () async {
                 LoadingDialog.show(context);
@@ -75,11 +78,13 @@ class SampleFeatureListView extends StatelessWidget {
               child: const Icon(Icons.delete, color: Colors.white),
             ),
             FloatingActionButton(
+              heroTag: 'search',
               backgroundColor: AppColors.primary,
               onPressed: () {
-                context.read<SampleFeatureListNotifier>().onUpdateSearch(
-                  search: 'ada',
-                );
+                // TODO: Search feature
+                // context.read<SampleFeatureListCubit>().onUpdateSearch(
+                //   search: 'ada',
+                // );
               },
               child: const Icon(Icons.search, color: Colors.white),
             ),

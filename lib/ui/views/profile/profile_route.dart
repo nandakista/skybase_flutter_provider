@@ -1,24 +1,20 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
 import 'package:skybase/service_locator.dart';
-import 'package:skybase/ui/views/profile/profile_notifier.dart';
 import 'package:skybase/ui/views/profile/profile_view.dart';
 
-import 'component/repository/profile_repository_notifier.dart';
+import 'component/repository/cubit/profile_repository_cubit.dart';
+import 'cubit/profile_cubit.dart';
 
 final profileRoute = [
   GoRoute(
     path: ProfileView.route,
     name: ProfileView.route,
     builder: (context, state) {
-      return MultiProvider(
+      return MultiBlocProvider(
         providers: [
-          ChangeNotifierProvider(
-            create: (_) => sl<ProfileNotifier>()..onInit(),
-          ),
-          ChangeNotifierProvider(
-            create: (_) => sl<ProfileRepositoryNotifier>()..onInit(),
-          ),
+          BlocProvider(create: (_) => sl<ProfileCubit>()..onInit()),
+          BlocProvider(create: (_) => sl<ProfileRepositoryCubit>()..onInit()),
         ],
         child: const ProfileView(),
       );

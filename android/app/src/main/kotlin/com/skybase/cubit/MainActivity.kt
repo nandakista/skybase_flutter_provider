@@ -1,4 +1,4 @@
-package com.skybase.provider
+package com.skybase.cubit
 
 import io.flutter.embedding.android.FlutterActivity
 

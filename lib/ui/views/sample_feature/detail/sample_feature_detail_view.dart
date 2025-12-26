@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:skybase/ui/views/sample_feature/detail/sample_feature_detail_notifier.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skybase/ui/views/sample_feature/detail/widgets/sample_feature_detail_header.dart';
 import 'package:skybase/ui/views/sample_feature/detail/widgets/sample_feature_detail_info.dart';
 import 'package:skybase/ui/views/sample_feature/detail/widgets/sample_feature_detail_tab.dart';
 import 'package:skybase/ui/widgets/base/state_view.dart';
 import 'package:skybase/ui/widgets/shimmer/sample_feature/shimmer_sample_feature_detail.dart';
 import 'package:skybase/ui/widgets/sky_appbar.dart';
+
+import 'cubit/sample_feature_detail_cubit.dart';
 
 class SampleFeatureDetailView extends StatelessWidget {
   static const String route = '/user-detail';
@@ -20,31 +21,37 @@ class SampleFeatureDetailView extends StatelessWidget {
     return Scaffold(
       appBar: SkyAppBar.primary(title: usernameArgs),
       body: SafeArea(
-        child: Consumer<SampleFeatureDetailNotifier>(
-          builder: (context, notifier, child) {
+        child: BlocBuilder<SampleFeatureDetailCubit, SampleFeatureDetailState>(
+          builder: (context, state) {
+            final cubit = context.read<SampleFeatureDetailCubit>();
+            final data =
+                (state is SampleFeatureDetailLoaded) ? state.result : null;
+            final errMessage =
+                (state is SampleFeatureDetailError) ? state.message : null;
+
             return StateView.page(
-              loadingEnabled: notifier.isLoading,
-              errorEnabled: notifier.isError,
+              loadingEnabled: state is SampleFeatureDetailLoading,
+              errorEnabled: state is SampleFeatureDetailError,
               emptyEnabled: false,
               loadingView: const ShimmerSampleFeatureDetail(),
-              errorTitle: notifier.errorMessage,
-              onRefresh: () => notifier.onRefresh(),
-              onRetry: () => notifier.onRefresh(),
+              errorTitle: errMessage,
+              onRefresh: () => cubit.onRefresh(context),
+              onRetry: () => cubit.onRefresh(context),
               child: Column(
                 children: [
                   SampleFeatureDetailHeader(
-                    avatar: notifier.dataObj?.avatarUrl ?? '',
-                    repositoryCount: notifier.dataObj?.repository ?? 0,
-                    followerCount: notifier.dataObj?.followers ?? 0,
-                    followingCount: notifier.dataObj?.following ?? 0,
+                    avatar: data?.avatarUrl ?? '',
+                    repositoryCount: data?.repository ?? 0,
+                    followerCount: data?.followers ?? 0,
+                    followingCount: data?.following ?? 0,
                   ),
                   SampleFeatureDetailInfo(
-                    name: notifier.dataObj?.name ?? '',
-                    bio: notifier.dataObj?.bio ?? '',
-                    company: notifier.dataObj?.company ?? '',
-                    location: notifier.dataObj?.location ?? '',
+                    name: data?.name ?? '',
+                    bio: data?.bio ?? '',
+                    company: data?.company ?? '',
+                    location: data?.location ?? '',
                   ),
-                  SampleFeatureDetailTab(data: notifier.dataObj),
+                  SampleFeatureDetailTab(data: data),
                 ],
               ),
             );

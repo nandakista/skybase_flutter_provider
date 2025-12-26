@@ -10,7 +10,7 @@
         android:name="${applicationName}"
         android:fitsSystemWindows="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="Skybase Provider"
+        android:label="Skybase Cubit"
         android:requestLegacyExternalStorage="true">
         <activity
             android:name=".MainActivity"

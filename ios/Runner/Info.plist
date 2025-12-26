@@ -7,7 +7,7 @@
 		<key>CFBundleDevelopmentRegion</key>
 		<string>$(DEVELOPMENT_LANGUAGE)</string>
 		<key>CFBundleDisplayName</key>
-		<string>Skybase Provider</string>
+		<string>Skybase Cubit</string>
 		<key>CFBundleExecutable</key>
 		<string>$(EXECUTABLE_NAME)</string>
 		<key>CFBundleIdentifier</key>
@@ -72,12 +72,12 @@
 		<key>com.apple.security.network.client</key>
 		<true/>
 		<key>UIStatusBarStyle</key>
-        <string>UIStatusBarStyleLightContent</string>
-        <key>UIViewControllerBasedStatusBarAppearance</key>
-        <false/>
-        <key>UIUserInterfaceStyle</key>
-        <string>Light</string>
-        <key>UIViewControllerBasedStatusBarAppearance</key>
-        <true/>
+		<string>UIStatusBarStyleLightContent</string>
+		<key>UIViewControllerBasedStatusBarAppearance</key>
+		<false/>
+		<key>UIUserInterfaceStyle</key>
+		<string>Light</string>
+		<key>UIViewControllerBasedStatusBarAppearance</key>
+		<true/>
 	</dict>
 </plist>

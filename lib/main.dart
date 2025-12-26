@@ -1,6 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skybase/config/themes/theme_manager.dart';
 import 'package:skybase/core/localization/locale_manager.dart';
 
@@ -30,20 +30,19 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
+    return MultiBlocProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => ThemeManager.instance),
+        BlocProvider(create: (_) => sl<ThemeManager>()..init()),
         // Add global notifier here..
       ],
-      child: Selector<ThemeManager, bool>(
-        selector: (context, state) => state.isDark,
-        builder: (context, isDarkMode, child) {
+      child: BlocBuilder<ThemeManager, ThemeState>(
+        builder: (context, state) {
           return MaterialApp.router(
             debugShowCheckedModeBanner: false,
-            title: 'Skybase Provider',
+            title: 'Skybase Cubit',
             theme: AppTheme.light,
             darkTheme: AppTheme.dark,
-            themeMode: (isDarkMode) ? ThemeMode.dark : ThemeMode.light,
+            themeMode: (state is IsDarkMode) ? ThemeMode.dark : ThemeMode.light,
             localizationsDelegates: context.localizationDelegates,
             supportedLocales: context.supportedLocales,
             locale: context.locale,

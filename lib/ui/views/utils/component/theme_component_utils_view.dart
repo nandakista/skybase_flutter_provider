@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skybase/config/themes/theme_manager.dart';
 import 'package:skybase/ui/widgets/sky_appbar.dart';
 
@@ -29,15 +29,13 @@ class _ThemeComponentUtilsViewState extends State<ThemeComponentUtilsView> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Text('Is Dark Mode'),
-                Consumer<ThemeManager>(
-                    builder: (context, notifier, child) {
-                      return Switch(
-                        value: notifier.isDark,
-                        onChanged: (value) {
-                          notifier.changeTheme();
-                        },
-                      );
-                    }
+                BlocBuilder<ThemeManager, ThemeState>(
+                  builder: (context, state) => Switch(
+                    value: state is IsDarkMode,
+                    onChanged: (value) {
+                      context.read<ThemeManager>().changeTheme();
+                    },
+                  ),
                 ),
               ],
             ),
